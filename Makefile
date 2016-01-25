@@ -1,6 +1,6 @@
 # inspiration: http://hiltmon.com/blog/2013/07/03/a-simple-c-plus-plus-project-structure/
 # TODO: Move `libmongoclient.a` to /usr/local/lib so this can work on production servers - The TODO at the top reminds me that I am using a different version of a library in development and it must be removed before deployment
-# 
+#
 CC := g++ # This is the main compiler
 # CC := clang --analyze # and comment out the linker last line for sanity
 SRCDIR := src
@@ -28,34 +28,34 @@ BUILDLIST := $(patsubst include/%,$(BUILDDIR)/%,$(INCDIRS))
 # Shared Compiler Flags
 # CFLAGS := -c
 INC := -I include $(INCLIST) -I /usr/local/include -I /usr/local/Cellar/glfw3/3.1.2/include -I /opt/local/include/
-LIB := -L lib -L /usr/local/lib -L /usr/local/Cellar/glfw3/3.1.2/lib -L /opt/local/lib -lglfw3 -lstdc++ -lflann -lOpenMeshTools
+LIB := -L lib -L /usr/local/lib -L /usr/local/Cellar/glfw3/3.1.2/lib -L /opt/local/lib -lstdc++ -lOpenMeshTools -lOpenMeshCore
 FRAMEWORK = -framework OpenGL -framework Cocoa -framework IOKit -framework CoreVideo
 
 # The OBJECTS list is also dynamic and uses a Makefile trick to build the list based on available sources
 
 $(TARGET): $(OBJECTS)
 	@echo " Linking...";
-	@echo " $(CC) $^ -o $(TARGET) $(LIB)"; 
+	@echo " $(CC) $^ -o $(TARGET) $(LIB)";
 	$(CC) $^ -o $(TARGET) $(LIB) $(FRAMEWORK);
 
 $(BUILDDIR)/%.o: $(SRCDIR)/%.$(SRCEXT)
 	@mkdir -p $(BUILDDIR);
 	@echo " Building..."
-	@echo " $(CC) $(CFLAGS) $(INC) -c -o $@ $<"; 
+	@echo " $(CC) $(CFLAGS) $(INC) -c -o $@ $<";
 	$(CC) $(CFLAGS) $(INC) -c -o $@ $<;
 
 clean:
-	@echo " Cleaning..."; 
-	@echo " $(RM) -r $(BUILDDIR) $(TARGET)"; 
+	@echo " Cleaning...";
+	@echo " $(RM) -r $(BUILDDIR) $(TARGET)";
 	$(RM) -r $(BUILDDIR) $(TARGET);
 
 install:
-	@echo "Installing $(EXECUTABLE)..."; 
+	@echo "Installing $(EXECUTABLE)...";
 	@echo " cp $(TARGET) $(INSTALLBINDIR)";
 	cp $(TARGET) $(INSTALLBINDIR);
-  
+
 distclean:
-	@echo "Removing $(EXECUTABLE)"; 
+	@echo "Removing $(EXECUTABLE)";
 	rm $(INSTALLBINDIR)/$(EXECUTABLE);
 
 # Tests
