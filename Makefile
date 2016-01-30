@@ -27,36 +27,32 @@ BUILDLIST := $(patsubst include/%,$(BUILDDIR)/%,$(INCDIRS))
 
 # Shared Compiler Flags
 # CFLAGS := -c
-INC := -I include $(INCLIST) -I /usr/local/include -I /usr/local/Cellar/glfw3/3.1.2/include -I /opt/local/include/
-LIB := -L lib -L /usr/local/lib -L /usr/local/Cellar/glfw3/3.1.2/lib -L /opt/local/lib -lstdc++ -lOpenMeshTools -lOpenMeshCore
+INC := -I include $(INCLIST) -I /usr/local/include -I /usr/local/Cellar/glfw3/3.1.2/include -I /opt/local/include/ -I /Users/ucaHome/libraries/ann_1.1.2/include
+LIB := -L lib -L /usr/local/lib -L /usr/local/Cellar/glfw3/3.1.2/lib -L /opt/local/lib -L /Users/ucaHome/libraries/ann_1.1.2/lib -lstdc++ -lOpenMeshTools -lOpenMeshCore -lANN
 FRAMEWORK = -framework OpenGL -framework Cocoa -framework IOKit -framework CoreVideo
 
 # The OBJECTS list is also dynamic and uses a Makefile trick to build the list based on available sources
 
 $(TARGET): $(OBJECTS)
-	@echo " Linking...";
-	@echo " $(CC) $^ -o $(TARGET) $(LIB)";
-	$(CC) $^ -o $(TARGET) $(LIB) $(FRAMEWORK);
+	@echo " Linking..."
+	$(CC) $^ -o $(TARGET) $(LIB) $(FRAMEWORK)
 
 $(BUILDDIR)/%.o: $(SRCDIR)/%.$(SRCEXT)
-	@mkdir -p $(BUILDDIR);
+	@mkdir -p $(BUILDDIR)
 	@echo " Building..."
-	@echo " $(CC) $(CFLAGS) $(INC) -c -o $@ $<";
-	$(CC) $(CFLAGS) $(INC) -c -o $@ $<;
+	$(CC) $(CFLAGS) $(INC) -c -o $@ $<
 
 clean:
 	@echo " Cleaning...";
-	@echo " $(RM) -r $(BUILDDIR) $(TARGET)";
-	$(RM) -r $(BUILDDIR) $(TARGET);
+	$(RM) -r $(BUILDDIR) $(TARGET)
 
 install:
-	@echo "Installing $(EXECUTABLE)...";
-	@echo " cp $(TARGET) $(INSTALLBINDIR)";
-	cp $(TARGET) $(INSTALLBINDIR);
+	@echo "Installing $(EXECUTABLE)..."
+	cp $(TARGET) $(INSTALLBINDIR)
 
 distclean:
-	@echo "Removing $(EXECUTABLE)";
-	rm $(INSTALLBINDIR)/$(EXECUTABLE);
+	@echo "Removing $(EXECUTABLE)"
+	rm $(INSTALLBINDIR)/$(EXECUTABLE)
 
 # Tests
 # tester:
