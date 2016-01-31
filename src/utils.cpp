@@ -9,9 +9,9 @@ namespace N3dicp
     }
     Eigen::Matrix4d loadTransformation(int transfNo)
     {
+        Eigen::Matrix4d initTransf;
         switch (transfNo) {
             case 1:
-            Eigen::Matrix4d initTransf;
             initTransf << 0.859356, 0.000000, 0.511377, -0.053997,
             0.000000, 1.000000, 0.000000, 0.003653,
             -0.511377, 0.000000, 0.859356, -0.005487,
@@ -22,6 +22,12 @@ namespace N3dicp
             // -0.565764, -0.006057, 0.824545, -0.010384,
             // 0.000000, 0.000000, 0.000000, 1.000000;
             //
+            case 2:
+            initTransf << -0.027151, -0.023013, 0.999366, 0.002352,
+            0.010032, 0.999678, 0.023293, -0.001107,
+            -0.999581, 0.010658, -0.026911, -0.001844,
+            0.000000, 0.000000, 0.000000, 1.000000;
+
             return initTransf;
 
 
@@ -43,6 +49,15 @@ namespace N3dicp
         if (idx == 4 ) outColour = lightOrange;
         if (idx == 5 ) outColour = lightPink;
         if (idx == 6 ) outColour = otherBlue;
+    }
+    void createRotationMatrixQuat (float rotX, float rotY, float rotZ, Eigen::Matrix3d& rotMat)
+    {
+        // good tutorial: http://www.gamasutra.com/view/feature/131686/rotating_objects_using_quaternions.php
+        //v´ = q v q-1 (where v = [0, v]), q = quaternion, v = arbitrary vector
+        rotMat = Eigen::AngleAxisd(rotX*M_PI, Eigen::Vector3d::UnitX())
+        * Eigen::AngleAxisd(rotY*M_PI,  Eigen::Vector3d::UnitY())
+        * Eigen::AngleAxisd(rotZ*M_PI, Eigen::Vector3d::UnitZ());
+        // std::cout << rotMat << std::endl << "is unitary: " << rotMat.isUnitary() << std::endl;
     }
 
 }//namespace N3dicp

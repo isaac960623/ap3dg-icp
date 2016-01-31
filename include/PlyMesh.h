@@ -21,8 +21,11 @@ namespace N3dicp
     {
     public:
         static int meshCount;
+        // PlyMesh();
         PlyMesh(std::string filename);
+        PlyMesh(const PlyMesh&);
         ~PlyMesh();
+        PlyMesh& operator= (const PlyMesh &pSrc);
         bool writeMesh(std::string filename);
         void applyTransformation(Eigen::Matrix4d transfMat);
         // demean vertices

@@ -8,7 +8,11 @@
 namespace N3dicp
 {
     int PlyMesh::meshCount = 0;
-    // void PlyMesh::setColour(OpenMesh::Vec3uc colour);
+    // PlyMesh::PlyMesh()
+    // {
+    //     m_mesh = NULL;
+    //     m_vertNum = 0;
+    // }
     PlyMesh::PlyMesh(std::string filename){
         if ( ! OpenMesh::IO::read_mesh(m_mesh, filename) )
         {
@@ -21,80 +25,114 @@ namespace N3dicp
             m_vertNum += 1;
         }
         meshCount++;
+        std::cout << "Explicit constr - meshCount = " << meshCount << "\n";
+
         OpenMesh::Vec3uc myColour(0,0,0);
         getColourFromList(meshCount,myColour);
         this->setColour(myColour);
     }
+    PlyMesh::PlyMesh(const PlyMesh& pSrc)
+    {
+        m_mesh = pSrc.m_mesh;
+        m_vertNum = pSrc.m_vertNum;
+
+        meshCount++;
+        std::cout << "Copy constr - meshCount = " << meshCount << "\n";
+        OpenMesh::Vec3uc myColour(0,0,0);
+        getColourFromList(meshCount,myColour);
+        this->setColour(myColour);
+
+    }
+    PlyMesh& PlyMesh::operator= (const PlyMesh& pSrc)
+    {
+        // check for self - assignment
+        if (this == &pSrc)
+        return *this;
+
+        m_mesh = pSrc.m_mesh;
+        m_vertNum = pSrc.m_vertNum;
+
+        meshCount++;
+        std::cout << "= operator - meshCount = " << meshCount << "\n";
+
+        OpenMesh::Vec3uc myColour(0,0,0);
+        getColourFromList(meshCount,myColour);
+        this->setColour(myColour);
+        // return the existing object
+        return *this;
+    }
     PlyMesh::~PlyMesh()
-    {}
-        #define MESHOPT( msg, tf ) \
-        std::cout << "  " << msg << ": " << ((tf)?"yes\n":"no\n")
+    {
 
-        bool PlyMesh::writeMesh(std::string filename){
-            OpenMesh::IO::Options wopt;
-            wopt += OpenMesh::IO::Options::VertexColor;
-            // wopt += OpenMesh::IO::Options::FaceColor;
+    }
+    #define MESHOPT( msg, tf ) \
+    std::cout << "  " << msg << ": " << ((tf)?"yes\n":"no\n")
 
-            // MESHOPT("vertex normals", m_mesh.has_vertex_normals());
-            // MESHOPT("vertex colors", m_mesh.has_vertex_colors());
-            // MESHOPT("face normals", m_mesh.has_face_normals());
-            // MESHOPT("face colors", m_mesh.has_face_colors());
+    bool PlyMesh::writeMesh(std::string filename){
+        OpenMesh::IO::Options wopt;
+        wopt += OpenMesh::IO::Options::VertexColor;
+        // wopt += OpenMesh::IO::Options::FaceColor;
 
-            if ( ! OpenMesh::IO::write_mesh(m_mesh, filename, wopt) )
-            {
-                std::cerr << "Error: cannot write mesh to " << filename << std::endl;
-                return 1;
-            }
-            return 0;
-        }
-        void PlyMesh::applyTransformation(Eigen::Matrix4d transfMat)
+        // MESHOPT("vertex normals", m_mesh.has_vertex_normals());
+        // MESHOPT("vertex colors", m_mesh.has_vertex_colors());
+        // MESHOPT("face normals", m_mesh.has_face_normals());
+        // MESHOPT("face colors", m_mesh.has_face_colors());
+
+        if ( ! OpenMesh::IO::write_mesh(m_mesh, filename, wopt) )
         {
-            for (MyMesh::VertexIter v_it = m_mesh.vertices_begin();
-            v_it != m_mesh.vertices_end(); ++v_it)
-            {
-                // apply the transformation to all the vertices
-                Eigen::Vector4d thisCoord = convertOMVecToEIGENVec(m_mesh.point(*v_it )).homogeneous() ;
-                Eigen::Vector4d updCoord = transfMat * thisCoord;
-
-                OpenMesh::Vec3d updVertex(updCoord[0],updCoord[1],updCoord[2]);
-                m_mesh.set_point( *v_it, updVertex);
-            }
+            std::cerr << "Error: cannot write mesh to " << filename << std::endl;
+            return 1;
         }
-        void PlyMesh::setColour(OpenMesh::Vec3uc colour)
+        return 0;
+    }
+    void PlyMesh::applyTransformation(Eigen::Matrix4d transfMat)
+    {
+        for (MyMesh::VertexIter v_it = m_mesh.vertices_begin();
+        v_it != m_mesh.vertices_end(); ++v_it)
         {
-            for (MyMesh::VertexIter v_it = m_mesh.vertices_begin();
-            v_it != m_mesh.vertices_end(); ++v_it)
-            {
-                m_mesh.set_color(*v_it,colour);
-            }
+            // apply the transformation to all the vertices
+            Eigen::Vector4d thisCoord = convertOMVecToEIGENVec(m_mesh.point(*v_it )).homogeneous() ;
+            Eigen::Vector4d updCoord = transfMat * thisCoord;
+
+            OpenMesh::Vec3d updVertex(updCoord[0],updCoord[1],updCoord[2]);
+            m_mesh.set_point( *v_it, updVertex);
         }
-        void PlyMesh::getVecticesE(Eigen::MatrixXd& outVertMat)
+    }
+    void PlyMesh::setColour(OpenMesh::Vec3uc colour)
+    {
+        for (MyMesh::VertexIter v_it = m_mesh.vertices_begin();
+        v_it != m_mesh.vertices_end(); ++v_it)
         {
-            uint32_t colIdx = 0;
-
-            for (MyMesh::VertexIter v_it = m_mesh.vertices_begin();
-            v_it != m_mesh.vertices_end(); ++v_it)
-            {
-                OpenMesh::Vec3d thisOMVert = m_mesh.point(*v_it);
-                Eigen::Vector3d thisEVert = convertOMVecToEIGENVec(thisOMVert);
-                // vectors are represented as matrices in Eigen
-                // .col = block operation for matrices and arrays
-                outVertMat.col(colIdx) = thisEVert;
-                colIdx += 1;
-            }
+            m_mesh.set_color(*v_it,colour);
         }
-        void PlyMesh::setVerticesE(Eigen::MatrixXd newVertPos)
+    }
+    void PlyMesh::getVecticesE(Eigen::MatrixXd& outVertMat)
+    {
+        uint32_t colIdx = 0;
+
+        for (MyMesh::VertexIter v_it = m_mesh.vertices_begin();
+        v_it != m_mesh.vertices_end(); ++v_it)
         {
-            uint32_t colIdx = 0;
-            for (MyMesh::VertexIter v_it = m_mesh.vertices_begin();
-            v_it != m_mesh.vertices_end(); ++v_it)
-            {
-                Eigen::Vector3d thisEVert = newVertPos.col(colIdx);
-
-                OpenMesh::Vec3d thisOMVert = convertEIGENVecToOMVec(thisEVert);
-                m_mesh.set_point( *v_it, thisOMVert);
-                colIdx += 1;
-            }
-
+            OpenMesh::Vec3d thisOMVert = m_mesh.point(*v_it);
+            Eigen::Vector3d thisEVert = convertOMVecToEIGENVec(thisOMVert);
+            // vectors are represented as matrices in Eigen
+            // .col = block operation for matrices and arrays
+            outVertMat.col(colIdx) = thisEVert;
+            colIdx += 1;
         }
-    }//namespace N3dicp
+    }
+    void PlyMesh::setVerticesE(Eigen::MatrixXd newVertPos)
+    {
+        uint32_t colIdx = 0;
+        for (MyMesh::VertexIter v_it = m_mesh.vertices_begin();
+        v_it != m_mesh.vertices_end(); ++v_it)
+        {
+            Eigen::Vector3d thisEVert = newVertPos.col(colIdx);
+
+            OpenMesh::Vec3d thisOMVert = convertEIGENVecToOMVec(thisEVert);
+            m_mesh.set_point( *v_it, thisOMVert);
+            colIdx += 1;
+        }
+
+    }
+}//namespace N3dicp
