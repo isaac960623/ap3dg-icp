@@ -1,5 +1,7 @@
 #include "icp.h"
 #include <stdio.h>
+#include <fstream>
+#include <stdlib.h>     /* abs */
 #include "converter.h"
 #include <math.h>       /* floor */
 #include <iomanip>      // std::setprecision
@@ -219,30 +221,57 @@ namespace N3dicp
             err += errMat.col(i).squaredNorm();
         }
         // err = errMat.sum();
-        std::cout << "*** err = " << err << std::endl;
+        // std::cout << "*** err = " << err << std::endl;
         // std::cout << "*** rotMat = " << rotationMatrix << "\n\n";
         // std::cout << "*** translVec = " << translationVec << "\n\n";
 
     }
 
-    void applyICP(Eigen::MatrixXd& in_pFixed, Eigen::MatrixXd& in_qMoving, Eigen::MatrixXd& final_qMoving, int maxIter, double err, double BAD_P_FILTER)
+    void applyICP(Eigen::MatrixXd& in_pFixed, Eigen::MatrixXd& in_qMoving, Eigen::MatrixXd& final_qMoving, int& out_numIter, double& out_finErr, int maxIter, double errThresh, double BAD_P_FILTER)
     {
+        std::ofstream outputFile;
+        outputFile.open ("icpErrors.txt");
         int numPts = in_qMoving.cols();
         Eigen::Matrix3d rotMat(Eigen::Matrix3d::Identity());
         Eigen::Vector3d translVec(0,0,0);
         Eigen::MatrixXd updated_qMoving(in_qMoving);
-        double errIter = 0;
-        for( int i = 0; i <= maxIter; i++ )
+        double thisErr, prevErr;
+        int i = 0; //curent iteration
+        for( i = 0; i <= maxIter; i++ )
         {
-            getIcpIteration(in_pFixed, updated_qMoving, rotMat, translVec,errIter, BAD_P_FILTER);
+            thisErr = 0;
+
+            getIcpIteration(in_pFixed, updated_qMoving, rotMat, translVec, thisErr, BAD_P_FILTER);
 
             updated_qMoving = rotMat * updated_qMoving + translVec.replicate(1,numPts);
 
+            double diffErr = std::abs(thisErr - prevErr);
             // compute error and check if it's smaller than the threshold!
-            if(errIter < err) break;
+            if (outputFile.is_open())
+            {
+                outputFile <<  thisErr << ",";
+            }
+            else std::cout << "Couldn't open output file.\n";
+            if(diffErr < errThresh)
+            {
+                // std::cout << "*** ICP - num iterations = " << i << std::endl;
+                break;
+            }
+
+            prevErr = thisErr;
         }
 
         final_qMoving = updated_qMoving;
+        out_numIter = i;
+        out_finErr = thisErr;
+
+        std::cout << "*** ICP - num iterations = " << out_numIter << std::endl;
+        std::cout << "*** ICP - final error = " << out_finErr << std::endl;
+
+        if (outputFile.is_open())
+        {
+            outputFile.close();
+        }
 
     }
 
@@ -251,20 +280,18 @@ namespace N3dicp
         long numPoints = pInit.cols();
         long newNumPoints = (long)((subsamplingRate/100)*numPoints);
         // pFinal(3,newNumPoints);
-        int kInit = 0;
-        int stepIdx = (int)(std::floor(100/subsamplingRate));
-
         std::cout << "Total subsampled points: " << newNumPoints << std::endl;
-        std::cout << "Step size: " << stepIdx << std::endl;
 
         for(int i = 0; i < newNumPoints; i++)
         {
-            if (kInit < numPoints)
-            {
-                pFinal.col(i) = pInit.col(kInit);
-                kInit += stepIdx;
-            }
-            else break;
+            // if (kInit < numPoints)
+            // {
+            long randIdx = std::rand() % numPoints;
+            pFinal.col(i) = pInit.col(randIdx);
+            // pFinal.col(i) = pInit.col(kInit);
+            // kInit += stepIdx;
+            // }
+            // else break;
 
         }
     }

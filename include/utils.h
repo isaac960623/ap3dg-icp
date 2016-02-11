@@ -11,7 +11,7 @@ namespace N3dicp
     void printMessage(std::string text);
     Eigen::Matrix4d loadTransformation(int transfNo);
     void getColourFromList(int idx,OpenMesh::Vec3uc& outColour);
-    void createRotationMatrixQuat (float rotX, float rotY, float rotZ, Eigen::Matrix3d& rotMat);
+    void createRotationMatrix(float rotX, float rotY, float rotZ, Eigen::Matrix3d& rotMat);
 
 }//namespace N3dicp
 

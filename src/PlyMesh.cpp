@@ -18,16 +18,16 @@ namespace N3dicp
         m_mesh.release_vertex_normals();
         m_mesh.release_face_normals();
 
-        if(m_mesh.has_vertex_normals())
-        {
-            printMessage("READ - YES - normals");
-            //     // delete any mesh normals!
-            //     m_mesh.release_vertex_normals();
-        }
-        else
-        {
-            printMessage("READ - NO - normals");
-        }
+        // if(m_mesh.has_vertex_normals())
+        // {
+        //     printMessage("READ - YES - normals");
+        //     //     // delete any mesh normals!
+        //     //     m_mesh.release_vertex_normals();
+        // }
+        // else
+        // {
+        //     printMessage("READ - NO - normals");
+        // }
         m_vertNum = 0;
         for (MyMesh::VertexIter v_it = m_mesh.vertices_begin();
         v_it != m_mesh.vertices_end(); ++v_it)
@@ -35,7 +35,7 @@ namespace N3dicp
             m_vertNum += 1;
         }
         meshCount++;
-        std::cout << "Explicit constr - meshCount = " << meshCount << "\n";
+        // std::cout << "Explicit constr - meshCount = " << meshCount << "\n";
 
         OpenMesh::Vec3uc myColour(0,0,0);
         getColourFromList(meshCount,myColour);
@@ -55,7 +55,7 @@ namespace N3dicp
         // delete[] vhandle;
 
         meshCount++;
-        std::cout << "Explicit constr - meshCount = " << meshCount << "\n";
+        // std::cout << "Explicit constr - meshCount = " << meshCount << "\n";
         OpenMesh::Vec3uc myColour(0,0,0);
         getColourFromList(meshCount,myColour);
         this->setColour(myColour);
@@ -67,7 +67,7 @@ namespace N3dicp
         m_vertNum = pSrc.m_vertNum;
 
         meshCount++;
-        std::cout << "Copy constr - meshCount = " << meshCount << "\n";
+        // std::cout << "Copy constr - meshCount = " << meshCount << "\n";
         OpenMesh::Vec3uc myColour(0,0,0);
         getColourFromList(meshCount,myColour);
         this->setColour(myColour);
@@ -84,7 +84,7 @@ namespace N3dicp
         m_vertNum = pSrc.m_vertNum;
 
         meshCount++;
-        std::cout << "= operator - meshCount = " << meshCount << "\n";
+        // std::cout << "= operator - meshCount = " << meshCount << "\n";
 
         OpenMesh::Vec3uc myColour(0,0,0);
         getColourFromList(meshCount,myColour);

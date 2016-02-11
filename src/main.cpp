@@ -1,5 +1,7 @@
 // compile with: gcc -I/usr/local/Cellar/glfw3/3.1.2/include -L/usr/local/Cellar/glfw3/3.1.2/lib/ -framework OpenGL -framework Cocoa -framework IOKit -framework CoreVideo -lglfw3 -o main -L/usr/lib/ -lstdc++ src/main.cpp
 // standard headers
+// basic file operations
+#include <fstream>
 #include <iostream>
 #include <string>
 #include "PlyMesh.h"
@@ -38,21 +40,41 @@ static const char* MODEL_OUT5_FILENAME = "../src/plyMeshes/_bun270_init.ply";
 static const char* MODEL_OUT6_FILENAME = "../src/plyMeshes/_bun315_init.ply";
 // ***************************************************************************
 // SECTION 2
-static const int S2_ICP_MAXITER = 20;
-static const double S2_ICP_MAXERR = 0.1;
+static const int S2_ICP_MAXITER = 50;
+static const double S2_ICP_MAXERR = 0.0001;
 static const double S2_ICP_BADPOINTSFILTER = 0.5;
 
 
 // ***************************************************************************
 // SECTION 3
-static const int S3_NUM_ROTATIONS = 5;
-static const int S3_MIN_ANGLE_DEGREES = 5;
-static const int S3_MAX_ANGLE_DEGREES = 30;
+static const int S3_NUM_ROTATIONS = 25;
+static const int S3_MIN_ANGLE_DEGREES = -50;
+static const int S3_MAX_ANGLE_DEGREES = 50;
 
+static const int S3_ICP_MAXITER = 50;
+static const double S3_ICP_MAXERR = 0.0001;
+static const double S3_ICP_BADPOINTSFILTER = 0.7;
 // ***************************************************************************
 // SECTION 4
+static const int S4_NUM_ITER = 1;
+static const float S4_MIN_NOISE_STD = 0.0003;
+static const float S4_MAX_NOISE_STD = 0.0003;
 
+static const int S4_ICP_MAXITER = 50;
+static const double S4_ICP_MAXERR = 0.0001;
+static const double S4_ICP_BADPOINTSFILTER = 0.7;
 
+// ***************************************************************************
+// SECTION 5
+static const int S5_NUM_ITER = 15;
+// static const int S5_SAMPLING_RATE= 30;
+// between 0 and 100
+static const int S5_MIN_SAMPL = 10;
+static const int S5_MAX_SAMPL = 90;
+
+static const int S5_ICP_MAXITER = 50;
+static const double S5_ICP_MAXERR = 0.0001;
+static const double S5_ICP_BADPOINTSFILTER = 0.7;
 
 void SECTION2 () // basic ICP
 {
@@ -91,7 +113,11 @@ void SECTION2 () // basic ICP
     // ************************************************************
     int numPts = q.cols();
     Eigen::MatrixXd final_q(3,numPts);
-    applyICP(p, q, final_q, S2_ICP_MAXITER, S2_ICP_MAXERR, S2_ICP_BADPOINTSFILTER);
+
+    int out_numIter = 0;
+    double out_finErr = 0.0;
+
+    applyICP(p, q, final_q, out_numIter, out_finErr, S2_ICP_MAXITER, S2_ICP_MAXERR, S2_ICP_BADPOINTSFILTER);
 
     mesh_45.writeMesh(MODEL_OUT2_INIT_FILENAME);
     // ************************************************************
@@ -120,6 +146,9 @@ void SECTION3() // ICP with rotation variation
     float rotZ = 0; // from 0 to 1
     Eigen::VectorXd anglesDegree;
     Eigen::VectorXd anglesRadians;
+    std::ofstream outputFile;
+    outputFile.open ("task3_results.txt");
+
 
     std::string filenameW("_M3rotated_");
 
@@ -136,19 +165,58 @@ void SECTION3() // ICP with rotation variation
     printMessage("reading ply mesh 1 ...");
     PlyMesh mesh_M1(MODEL_1_FILENAME);
 
+    // center the mesh
+    int numPts = mesh_M1.getTotalVertices();
+    Eigen::MatrixXd p(3,numPts);
+    mesh_M1.getVecticesE(p);
+    Eigen::Vector3d meanP(p.row(0).mean(),p.row(1).mean(),p.row(2).mean());
+    p = p - meanP.replicate(1,numPts);
+    mesh_M1.setVerticesE(p);
+    std::string m1Filename = BASE_PATH + std::string("_M1_centered_") + EXTENSION;
+    mesh_M1.writeMesh(m1Filename);
+
+
     // ************************************************************
     // Generate rotations
     for( int i = 0; i < S3_NUM_ROTATIONS; i ++)
     {
-        std::cout << "*** angle = " << anglesRadians[i] << "\n";
-        createRotationMatrixQuat (anglesRadians[i], rotY, rotZ, rotationMat);
+        std::cout << "\nT3 - iteration= " << i << "\n";
+        std::cout << "angle = " << anglesDegree[i] << "\n";
+
+        // createRotationMatrix(anglesRadians[i], rotY, rotZ, rotationMat);
+        // createRotationMatrix(rotX, anglesRadians[i], rotZ, rotationMat);
+        createRotationMatrix(rotX, rotY, anglesRadians[i], rotationMat);
 
         transformationMat.block<3,3>(0,0) = rotationMat;//.data();
-        std::cout << "*** transfMat idx " << i << " :\n" << transformationMat << "\n\n";
+        // std::cout << "*** transfMat idx " << i << " :\n" << transformationMat << "\n\n";
         // ************************************************************
         // Apply transformation to the mesh and run ICP
         PlyMesh mesh_M3(mesh_M1); // this creates a new object - why? OpenMesh magic
         mesh_M3.applyTransformation(transformationMat);
+
+
+        // ************************************************************
+        // Get point clouds - fixed p, moving q
+        Eigen::MatrixXd q(3,numPts);
+        mesh_M3.getVecticesE(q);
+        // ************************************************************
+        Eigen::MatrixXd final_q(3,numPts);
+
+
+        int out_numIter = 0;
+        double out_finErr = 0.0;
+
+        applyICP(p, q, final_q, out_numIter, out_finErr, S3_ICP_MAXITER, S3_ICP_MAXERR, S3_ICP_BADPOINTSFILTER);
+
+        // save iterations and errors in a file somewhere
+        if (outputFile.is_open())
+        {
+            outputFile <<  anglesDegree[i] << "," << out_numIter << "," << out_finErr << "\n";
+        }
+        else std::cout << "Couldn't open output file.\n";
+        // ************************************************************
+        // Save results
+        mesh_M3.setVerticesE(final_q);
 
         // ************************************************************
         // Save iteration
@@ -159,9 +227,14 @@ void SECTION3() // ICP with rotation variation
         // mesh_M1.writeMesh(m1Filename);
         mesh_M3.writeMesh(m3Filename);
 
-        // run ICP between M1 and M3
     }
+    if (outputFile.is_open())
+    {
+        outputFile.close();
+    }
+
 }
+// ***************************************************************************
 void SECTION4() // ICP with add random noise
 {
     printMessage("TASK 4");
@@ -169,63 +242,145 @@ void SECTION4() // ICP with add random noise
     // INIT
     int i = 1;
     std::string filenameW("_M1noisy_");
-    double noiseStd = 0.001;
-    int kNN = 15;
+    // double noiseStd = 0.001;
+    Eigen::VectorXd stdVect;
+    stdVect = Eigen::VectorXd::LinSpaced(S4_NUM_ITER, S4_MIN_NOISE_STD, S4_MAX_NOISE_STD);
+    std::ofstream outputFile;
+    outputFile.open ("task4_results.txt");
+
+
     printMessage("reading ply mesh 1 ...");
     PlyMesh mesh_M1(MODEL_1_FILENAME);
-    PlyMesh mesh_M2(mesh_M1);
+    printMessage("reading ply mesh 2 ...");
+    PlyMesh mesh_M2(MODEL_2_FILENAME);
 
-    // ************************************************************
-    mesh_M2.addNoise(noiseStd);
-
-    // ************************************************************
-    // run ICP analysis
-
-    // ************************************************************
-    // Save results
-    std::string iterationNo(std::to_string(i));
-    std::string m1Filename = BASE_PATH + filenameW + iterationNo + EXTENSION;
-    mesh_M2.writeMesh(m1Filename);
+    // apply transformation - good initial alignment
+    Eigen::Matrix4d initTransf = loadTransformation(TRANSF00_45);
+    mesh_M2.applyTransformation(initTransf);
 
 
+    int numPts = mesh_M1.getTotalVertices();
+    Eigen::MatrixXd p(3,numPts);
+    mesh_M1.getVecticesE(p);
 
 
+    for (int i = 0; i < S4_NUM_ITER; i++  )
+    {
+        std::cout << "\nT4 - iteration= " << i << "\n";
+        std::cout << "noiseStd = " << stdVect(i) << "\n";
+        // ************************************************************
+        PlyMesh mesh_M3(mesh_M2);
+        mesh_M3.addNoise(stdVect(i));
+
+        // ************************************************************
+        // run ICP analysis
+        // ************************************************************
+        // Get point clouds - fixed p, moving q
+
+        Eigen::MatrixXd q(3,numPts);
+        mesh_M3.getVecticesE(q);
+        // ************************************************************
+        Eigen::MatrixXd final_q(3,numPts);
+        int out_numIter = 0;
+        double out_finErr = 0.0;
+        applyICP(p, q, final_q, out_numIter, out_finErr, S4_ICP_MAXITER, S4_ICP_MAXERR, S4_ICP_BADPOINTSFILTER);
+        // save iterations and errors in a file somewhere
+        if (outputFile.is_open())
+        {
+            outputFile <<  stdVect[i] << "," << out_numIter << "," << out_finErr << "\n";
+        }
+        else std::cout << "Couldn't open output file.\n";
+        // ************************************************************
+        // Save results
+        mesh_M3.setVerticesE(final_q);
+
+        // ************************************************************
+        // Save results
+        std::string iterationNo(std::to_string(i));
+        std::string m1Filename = BASE_PATH + filenameW + iterationNo + EXTENSION;
+        mesh_M3.writeMesh(m1Filename);
+    }
+
+    if (outputFile.is_open())
+    {
+        outputFile.close();
+    }
 }
+// ***************************************************************************
 void SECTION5() // ICP with subsampling
 {
     printMessage("TASK 5");
     // ************************************************************
     // INIT
     std::string filenameW ("_M2subsampled_");
-    float subsamplingRate = 30; // % - between 0 and 100
+    std::ofstream outputFile;
+    outputFile.open ("task5_results.txt");
+    Eigen::VectorXd samplingVect;
+    samplingVect = Eigen::VectorXd::LinSpaced(S5_NUM_ITER, S5_MIN_SAMPL, S5_MAX_SAMPL);
+    // float subsamplingRate = 30; // % - between 0 and 100
     printMessage("reading ply mesh 1 ...");
     PlyMesh mesh_M1(MODEL_1_FILENAME);
+    printMessage("reading ply mesh 2 ...");
     PlyMesh mesh_M2(MODEL_2_FILENAME);
 
 
-    Eigen::MatrixXd p(3,mesh_M2.getTotalVertices());
-    mesh_M2.getVecticesE(p);
+    // apply transformation - good initial alignment
+    Eigen::Matrix4d initTransf = loadTransformation(TRANSF00_45);
+    mesh_M2.applyTransformation(initTransf);
 
-    long numPoints = p.cols();
-    long newNumPoints = (long)((subsamplingRate/100)*numPoints);
-    Eigen::MatrixXd pSubsampled(3,newNumPoints);
-    subsample(p, pSubsampled, subsamplingRate);
 
-    PlyMesh mesh_M2_ss(pSubsampled);
+    Eigen::MatrixXd p(3,mesh_M1.getTotalVertices());
+    mesh_M1.getVecticesE(p);
+
+    Eigen::MatrixXd q(3,mesh_M2.getTotalVertices());
+    mesh_M2.getVecticesE(q);
 
     // ************************************************************
     // ICP magic
+    int numPts = q.cols();
 
+    for (int i = 0; i < S5_NUM_ITER; i++  )
+    {
+        std::cout << "\nT5 - iteration= " << i << "\n";
+        std::cout << "sampling rate = " << samplingVect(i) << "\n";
 
-    // ************************************************************
-    // Save results
-    std::string m1Filename = BASE_PATH + filenameW + EXTENSION;
-    mesh_M2_ss.writeMesh(m1Filename);
+        long newNumPoints = (long)((samplingVect(i)/100)*numPts);
+        Eigen::MatrixXd qSubsampled(3,newNumPoints);
+        subsample(q, qSubsampled, samplingVect(i));
+
+        // ************************************************************
+        // run ICP
+        // ************************************************************
+        Eigen::MatrixXd final_q(3,newNumPoints);
+        int out_numIter = 0;
+        double out_finErr = 0.0;
+        applyICP(p, qSubsampled, final_q, out_numIter, out_finErr, S5_ICP_MAXITER, S5_ICP_MAXERR, S5_ICP_BADPOINTSFILTER);
+        // save iterations and errors in a file somewhere
+        if (outputFile.is_open())
+        {
+            outputFile <<  samplingVect[i] << "," << out_numIter << "," << out_finErr << "\n";
+        }
+        else std::cout << "Couldn't open output file.\n";
+        // Eigen::MatrixXd final_q(qSubsampled);
+        // ************************************************************
+        // Save results
+        PlyMesh mesh_M2_ss(final_q);
+        std::string iterationNo(std::to_string(i));
+        std::string m1Filename = BASE_PATH + filenameW + iterationNo + EXTENSION;
+        mesh_M2_ss.writeMesh(m1Filename);
+    }
+
+    if (outputFile.is_open())
+    {
+        outputFile.close();
+    }
 }
+// ***************************************************************************
 void section6() // multiple body registration
 {
 
 }
+// ***************************************************************************
 void SECTION7() // ICP with normals
 {
     printMessage("TASK 7");
@@ -259,12 +414,13 @@ void SECTION7() // ICP with normals
     mesh_M1.writeMesh(m1Filename);
 }
 
+// ***************************************************************************
 int main(int argc, const char * argv[])
 {
-    SECTION2 ();
+    // SECTION2 ();
     // SECTION3();
     // SECTION4();
-    // SECTION5();
+    SECTION5();
     // SECTION6();
     // SECTION7();
     // all headers should be defined in the h files, not the corresponding cpp - in the guards

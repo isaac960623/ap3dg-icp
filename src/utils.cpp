@@ -17,16 +17,6 @@ namespace N3dicp
             -0.576947, -0.014995, 0.816644, -0.009324,
             0.000000, 0.000000, 0.000000, 1.000000;
 
-            // initTransf << 0.844884, -0.011707, 0.534821, -0.049443,
-            // 0.023499, 0.999608, -0.015241, 0.000385,
-            // -0.534433, 0.025444, 0.844828, -0.017005,
-            // 0.000000, 0.000000, 0.000000, 1.000000;
-
-            // initTransf << 0.824503, 0.008312, 0.565796, -0.053328,
-            // -0.010281, 0.999947, 0.000292, -0.000592,
-            // -0.565764, -0.006057, 0.824545, -0.010384,
-            // 0.000000, 0.000000, 0.000000, 1.000000;
-            //
             // case 2:
             // initTransf << -0.027151, -0.023013, 0.999366, 0.002352,
             // 0.010032, 0.999678, 0.023293, -0.001107,
@@ -48,6 +38,7 @@ namespace N3dicp
         OpenMesh::Vec3uc lightPink(240,96,96);
         OpenMesh::Vec3uc otherBlue(95,172,190);
 
+        outColour = otherBlue;
         if (idx == 1 ) outColour = purple;
         if (idx == 2 ) outColour = lightBlue;
         if (idx == 3 ) outColour = lightYellow;
@@ -55,7 +46,7 @@ namespace N3dicp
         if (idx == 5 ) outColour = lightPink;
         if (idx == 6 ) outColour = otherBlue;
     }
-    void createRotationMatrixQuat (float rotX, float rotY, float rotZ, Eigen::Matrix3d& rotMat)
+    void createRotationMatrix (float rotX, float rotY, float rotZ, Eigen::Matrix3d& rotMat)
     {
         // good tutorial: http://www.gamasutra.com/view/feature/131686/rotating_objects_using_quaternions.php
         //v´ = q v q-1 (where v = [0, v]), q = quaternion, v = arbitrary vector

@@ -1,0 +1,398 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Programming/Coding Assignment
+% LaTeX Template
+%
+% This template has been downloaded from:
+% http://www.latextemplates.com
+%
+% Original author:
+% Ted Pavlic (http://www.tedpavlic.com)
+%
+% Note:
+% The \lipsum[#] commands throughout this template generate dummy text
+% to fill the template out. These commands should all be removed when 
+% writing assignment content.
+%
+% This template uses a Perl script as an example snippet of code, most other
+% languages are also usable. Configure them in the "CODE INCLUSION 
+% CONFIGURATION" section.
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%----------------------------------------------------------------------------------------
+%	PACKAGES AND OTHER DOCUMENT CONFIGURATIONS
+%----------------------------------------------------------------------------------------
+
+\documentclass{article}
+
+\usepackage{fancyhdr} % Required for custom headers
+\usepackage{lastpage} % Required to determine the last page for the footer
+\usepackage{extramarks} % Required for headers and footers
+\usepackage[usenames,dvipsnames]{color} % Required for custom colors
+%\usepackage{graphicx}% % Required to insert images
+\usepackage{listings} % Required for insertion of code
+\usepackage{courier} % Required for the courier font
+ \usepackage[pdftex]{graphicx}
+  \graphicspath{{figures/}}
+   \DeclareGraphicsExtensions{.pdf,.jpg,.png}
+  \usepackage[caption=false,font=footnotesize]{subfig}
+%\usepackage[cmex10]{amsmath}
+\usepackage{amsmath,amssymb}
+
+\interdisplaylinepenalty=2500
+
+% Margins
+\topmargin=-0.45in
+\evensidemargin=0in
+\oddsidemargin=0in
+\textwidth=6.5in
+\textheight=9.0in
+\headsep=0.25in
+
+\linespread{1.1} % Line spacing
+
+% Set up the header and footer
+\pagestyle{fancy}
+\lhead{\hmwkAuthorName} % Top left header
+%\chead{\hmwkClass\ (\hmwkClassInstructor\ \hmwkClassTime): \hmwkTitle} % Top center head
+\rhead{\firstxmark} % Top right header
+\lfoot{\lastxmark} % Bottom left footer
+\cfoot{} % Bottom center footer
+\rfoot{Page\ \thepage\ of\ \protect\pageref{LastPage}} % Bottom right footer
+\renewcommand\headrulewidth{0.4pt} % Size of the header rule
+\renewcommand\footrulewidth{0.4pt} % Size of the footer rule
+
+\setlength\parindent{0pt} % Removes all indentation from paragraphs
+
+%----------------------------------------------------------------------------------------
+%	CODE INCLUSION CONFIGURATION
+%----------------------------------------------------------------------------------------
+%
+\usepackage{listings}
+\usepackage{color}
+
+\definecolor{dkgreen}{rgb}{0,0.6,0}
+\definecolor{gray}{rgb}{0.5,0.5,0.5}
+\definecolor{mauve}{rgb}{0.58,0,0.82}
+
+\lstset{frame=tb,
+  language=Python,
+  aboveskip=3mm,
+  belowskip=3mm,
+  showstringspaces=false,
+  columns=flexible,
+  basicstyle={\small\ttfamily},
+  numbers=none,
+  numberstyle=\tiny\color{gray},
+  keywordstyle=\color{blue},
+  commentstyle=\color{dkgreen},
+  stringstyle=\color{mauve},
+  breaklines=true,
+  breakatwhitespace=true,
+  tabsize=3
+}
+
+
+%----------------------------------------------------------------------------------------
+%	DOCUMENT STRUCTURE COMMANDS
+%	Skip this unless you know what you're doing
+%----------------------------------------------------------------------------------------
+
+%% Header and footer for when a page split occurs within a problem environment
+\newcommand{\enterProblemHeader}[1]{
+\nobreak\extramarks{#1}{#1 continued on next page\ldots}\nobreak
+\nobreak\extramarks{#1 (continued)}{#1 continued on next page\ldots}\nobreak
+}
+
+% Header and footer for when a page split occurs between problem environments
+\newcommand{\exitProblemHeader}[1]{
+\nobreak\extramarks{#1 (continued)}{#1 continued on next page\ldots}\nobreak
+\nobreak\extramarks{#1}{}\nobreak
+}
+
+\setcounter{secnumdepth}{0} % Removes default section numbers
+\newcounter{homeworkProblemCounter} % Creates a counter to keep track of the number of problems
+
+\newcommand{\homeworkProblemName}{}
+\newenvironment{homeworkProblem}[1][Task \arabic{homeworkProblemCounter}]{ % Makes a new environment called homeworkProblem which takes 1 argument (custom name) but the default is "Problem #"
+\stepcounter{homeworkProblemCounter} % Increase counter for number of problems
+\renewcommand{\homeworkProblemName}{#1} % Assign \homeworkProblemName the name of the problem
+\section{\homeworkProblemName} % Make a section in the document with the custom problem count
+\enterProblemHeader{\homeworkProblemName} % Header and footer within the environment
+}{
+\exitProblemHeader{\homeworkProblemName} % Header and footer after the environment
+}
+
+\newcommand{\problemAnswer}[1]{ % Defines the problem answer command with the content as the only argument
+\noindent\framebox[\columnwidth][c]{\begin{minipage}{0.98\columnwidth}#1\end{minipage}} % Makes the box around the problem answer and puts the content inside
+}
+
+\newcommand{\homeworkSectionName}{}
+\newenvironment{homeworkSection}[1]{ % New environment for sections within homework problems, takes 1 argument - the name of the section
+\renewcommand{\homeworkSectionName}{#1} % Assign \homeworkSectionName to the name of the section from the environment argument
+\subsection{\homeworkSectionName} % Make a subsection with the custom name of the subsection
+\enterProblemHeader{\homeworkProblemName\ [\homeworkSectionName]} % Header and footer within the environment
+}{
+\enterProblemHeader{\homeworkProblemName} % Header and footer after the environment
+}
+
+%----------------------------------------------------------------------------------------
+%	NAME AND CLASS SECTION
+%----------------------------------------------------------------------------------------
+
+\newcommand{\hmwkTitle}{Coursework \#1} % Assignment title
+\newcommand{\hmwkDueDate}{Friday,\ February 12,\ 2016} % Due date
+\newcommand{\hmwkClass}{COMPM080} % Course/class
+\newcommand{\hmwkAuthorName}{Maria Ruxandra Robu} % Your name
+
+%----------------------------------------------------------------------------------------
+%	TITLE PAGE
+%----------------------------------------------------------------------------------------
+
+\title{
+\vspace{2in}
+\textmd{\textbf{\hmwkClass:\ \hmwkTitle}}\\
+\normalsize\vspace{0.1in}\small{Due\ on\ \hmwkDueDate}\\
+%\vspace{0.1in}\large{\textit{\hmwkClassInstructor\ \hmwkClassTime}
+\vspace{3in}
+}
+
+\author{\textbf{\hmwkAuthorName  - 14042500}}
+\date{} % Insert date here if you want it to appear below your name
+
+%----------------------------------------------------------------------------------------
+
+\begin{document}
+
+\maketitle
+
+%----------------------------------------------------------------------------------------
+%	TABLE OF CONTENTS
+%----------------------------------------------------------------------------------------
+
+%\setcounter{tocdepth}{1} % Uncomment this line if you don't want subsections listed in the ToC
+
+%\newpage
+%\tableofcontents
+\newpage
+
+Introduction
+%----------------------------------------------------------------------------------------
+%	PROBLEM 1
+%----------------------------------------------------------------------------------------
+
+% To have just one problem per page, simply put a \clearpage after each problem
+
+\begin{homeworkProblem}
+
+\textbf{Basic ICP algorithm}\\
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{figure*}[h]
+\centering
+\subfloat[]{\includegraphics[height=2in]{task2_noAlign_before}%
+\label{fig_t2_noalign_b}}
+\hfil
+\subfloat[]{\includegraphics[height=2in]{task2_noAlign_after}%
+\label{fig_t2_noalign_a}}
+\caption{Task 2 - no initial alignment - 27 iterations - error = 0.11854}
+\label{fig:t2_noalign}
+\end{figure*}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{figure*}[h]
+\centering
+\subfloat[]{\includegraphics[height=2in]{task2_align_before}%
+\label{fig_t2_align_b}}
+\hfil
+\subfloat[]{\includegraphics[height=2in]{task2_align_after}%
+\label{fig_t2_align_a}}
+\caption{Task 2 - no initial alignment - 11 iterations - error = 0.116692}
+\label{fig:t2_align}
+\end{figure*}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+\end{homeworkProblem}
+
+%\clearpage
+%----------------------------------------------------------------------------------------
+%	PROBLEM 2
+%----------------------------------------------------------------------------------------
+
+\begin{homeworkProblem}
+
+\textbf{Vary rotation}\\
+
+The mesh M1 was centered at its origin by subtracting the mean $\bar{p}$ from all its points $p$, as shown in Figure \ref{fig_t3_m1_centered}. Once its position is set, incremental rotations are applied to the mesh in the x, y and z axes. Figure  \ref{fig_t3_m3_rot} shows an example for 3 rotations along the x axis. Once we have the initial M1 and the rotated M3, ICP is ran for each iteration. Figure \ref{fig_t3_m3_goodAlign} illustrates the results for the 3 rotations in the example. \\
+
+%\begin{equation}
+%\tilde{p} = p - \bar{p}
+%\end{equation}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{figure*}[h]
+\centering
+\subfloat[]{\includegraphics[height=1.5in]{t3_m1_centered}%
+\label{fig_t3_m1_centered}}
+\hfil
+\subfloat[]{\includegraphics[height=1.5in]{t3_rotx}%
+\label{fig_t3_m3_rot}}
+\hfil
+\subfloat[]{\includegraphics[height=1.5in]{t3_goodresults}%
+\label{fig_t3_m3_goodAlign}}
+\caption{Task 3 - Introduction}
+\label{fig:t3_intro}
+\end{figure*}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+The parameters used for this section are:
+\begin{itemize}
+  \item number of different rotations =  25
+  \item interval of degrees [-50, 50]
+  \item maximum number of iterations for ICP = 50
+  \item error threshold for ICP = 1e-04
+  \item threshold for the bad points rejection = 70\%
+\end{itemize}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{figure*}[h]
+\centering
+\subfloat[]{\includegraphics[height=1.5in]{task3_xaxis}%
+\label{fig_t3_conv_x}}
+\hfil
+\subfloat[]{\includegraphics[height=1.5in]{task3_yaxis}%
+\label{fig_t3_conv_y}}
+\hfil
+\subfloat[]{\includegraphics[height=1.5in]{task3_zaxis}%
+\label{fig_t3_conv_z}}
+\caption{Task 3 - Convergence Analysis for the 3 axes of rotation}
+\label{fig:t3_conv}
+\end{figure*}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+For each iteration, the final error and number of iterations were saved in a file and plotted with Matlab. The figures \ref{fig:t3_conv} show the basins of convergence for the ICP algorithm by varying the rotation angle on the 3 axes. The minimum error obtained (1.48e-11) was for the z axis at -4 degrees and the maximum (33.64) on the y axis for -33 degrees. 
+
+%\begin{lstlisting}
+%from mock import patch
+%@patch('greengraph.map.Map')
+%def getMapMock(mockMap):
+%	# patch decorator
+%	mockMap.pixels=someTestImage
+%	numGreenPix=mockMap.count_green()
+%\end{lstlisting}
+
+
+%\problemAnswer{
+%\begin{center}
+%%\includegraphics[width=0.75\columnwidth]{example_figure} % Example image
+%\end{center}
+%
+%\lipsum[3-5]
+%}
+\end{homeworkProblem}
+
+%----------------------------------------------------------------------------------------
+
+\begin{homeworkProblem}
+
+
+\textbf{Noise}\\
+
+mnoisy2 - 0.01
+bunny on fire - orange 0.00055, red noise 0.001
+
+
+between 0.0001 and 0.005 - 15 samples
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{figure*}[h]
+\centering
+\subfloat[]{\includegraphics[height=2in]{t4_noiseBoth}%
+\label{fig_t4_noiseBoth}}
+\caption{Task 4 - Bunny with different levels of noise. Orange corresponds to 55e-04 standard deviation and red to 1e-03 standard deviation}
+\label{fig:t4_noisyEx}
+\end{figure*}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{figure*}[h]
+\centering
+\subfloat[]{\includegraphics[height=2.3in]{task4_noiseComp}%
+\label{fig_t4_noisyComp}}
+\hfil
+\subfloat[]{\includegraphics[height=2.3in]{task4_noiseNonoise}%
+\label{fig_t4_noiseNoNoise}}
+\caption{Task 4 - Noise analysis}
+\label{fig:t4_noisyAnalysis}
+\end{figure*}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\end{homeworkProblem}
+
+
+%----------------------------------------------------------------------------------------
+
+\begin{homeworkProblem}
+  
+\textbf{Subsampling}\\
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{figure*}[h]
+\centering
+\subfloat[]{\includegraphics[height=2.3in]{task5_subsampled35}%
+\label{fig_t5_subsampled35}}
+\caption{Task 5 - Example of subsampling - 35\%}
+\label{fig:t5_subsEx}
+\end{figure*}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{figure*}[h]
+\centering
+\subfloat[]{\includegraphics[height=2.3in]{task5_errComp}%
+\label{fig_t5_subsErrComp}}
+\hfil
+\subfloat[]{\includegraphics[height=2.3in]{task5_iterationsComp}%
+\label{fig_t5_subsIterComp}}
+\caption{Task 4 - Noise analysis}
+\label{fig:t5_subsampling}
+\end{figure*}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\end{homeworkProblem}
+
+
+%----------------------------------------------------------------------------------------
+
+\begin{homeworkProblem}
+  
+\textbf{Multi-body}\\
+
+
+\end{homeworkProblem}
+
+
+%----------------------------------------------------------------------------------------
+\begin{homeworkProblem}
+  
+\textbf{Normal estimation + improved icp}\\
+
+
+\end{homeworkProblem}
+
+
+%----------------------------------------------------------------------------------------
+
+
+
+\end{document}
