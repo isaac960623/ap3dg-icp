@@ -8,7 +8,7 @@ namespace N3dicp
     // ************************************************************
     // Find knn correspondence
     // ************************************************************
-    void findCorrespondences (Eigen::MatrixXd& in_pFixed, Eigen::MatrixXd& in_qMoving,Eigen::MatrixXd& out_pFixed, Eigen::MatrixXd& out_qMoving){
+    void findCorrespondences (Eigen::MatrixXd& in_pFixed, Eigen::MatrixXd& in_qMoving,Eigen::MatrixXd& out_pFixed, Eigen::MatrixXd& out_qMoving, double BAD_P_FILTER){
         int nPts = in_pFixed.cols(); // actual number of data points
         int nQueryPts = in_qMoving.cols();
         int dim = 3; // number of dimensions
@@ -20,8 +20,9 @@ namespace N3dicp
         ANNdistArray dists; // near neighbor distances
         ANNkd_tree* kdTree; // search structure
 
-        int dimCorresp = k; // cols - closest k idx of the moving query point
-        Eigen::MatrixXd correspArray(nQueryPts,dimCorresp);
+        // 1 col for the closest k, 1 col for the corresponding distance
+        Eigen::MatrixXd correspArray(nQueryPts,2);
+
 
         dataPFixed = convertEigenMatToANNarray(in_pFixed);
         pointQMoving = annAllocPt(dim);
@@ -37,14 +38,15 @@ namespace N3dicp
 
             kdTree->annkSearch(pointQMoving, k, nnIdx, dists, eps);
             // std::cout<< "*** distance = " << dists[0] << " and points idx = " << nnIdx[0] << std::endl;
-            for( int kk = 0; kk < k; kk++)
-            {
-                correspArray(i,kk) = nnIdx[kk];
-            }
+            // closest neighbour
+            correspArray(i,0) = nnIdx[0];
+            // corresp distance
+            correspArray(i,1) = dists[0];
+
             annDeallocPt(pointQMoving);
         }
         // deep copy! if you change in_q, out_q will not change
-        out_qMoving = in_qMoving;
+        // out_qMoving = in_qMoving;
         // std::cout << "*** before in_q "<<in_qMoving.col(0) << std::endl;
         // std::cout << "*** before out_q "<<out_qMoving.col(0) << std::endl;
         // Eigen::Vector3d testq0(3);
@@ -52,12 +54,26 @@ namespace N3dicp
         // in_qMoving.col(0) = testq0;
         // std::cout << "*** after in_q "<<in_qMoving.col(0) << std::endl;
         // std::cout << "*** after out_q "<<out_qMoving.col(0) << std::endl;
+        double maxDist = correspArray.col(1).maxCoeff();
+        // double minDist = correspArray.col(1).minCoeff();
 
-
+        // std::cout << "*** max dist "<< maxDist << std::endl;
+        // std::cout << "*** min dist "<< minDist << std::endl;
+        double filterMaxDist = maxDist * BAD_P_FILTER;
+        int outIdx = 0;
         for (int i = 0; i < nQueryPts; i++)
         {
-            int thisIdx = correspArray(i,0);
-            out_pFixed.col(i) = in_pFixed.col(thisIdx);
+            // int thisIdx = correspArray(i,0);
+            // out_pFixed.col(i) = in_pFixed.col(thisIdx);
+
+            if (correspArray(i,1) < filterMaxDist)
+            {
+                int thisIdx = correspArray(i,0);
+                out_qMoving.col(outIdx) = in_qMoving.col(i);
+                out_pFixed.col(outIdx) = in_pFixed.col(thisIdx);
+                outIdx += 1;
+            }
+
         }
 
         // double checkQ = (in_qMoving.array() - out_qMoving.array()).sum();
@@ -149,13 +165,13 @@ namespace N3dicp
         annClose(); // deallocate any shared memory used for the kd search
     }
 
-    void getIcpIteration(Eigen::MatrixXd& in_pFixed, Eigen::MatrixXd& in_qMoving, Eigen::Matrix3d& rotationMatrix, Eigen::Vector3d& translationVec, double& err)
+    void getIcpIteration(Eigen::MatrixXd& in_pFixed, Eigen::MatrixXd& in_qMoving, Eigen::Matrix3d& rotationMatrix, Eigen::Vector3d& translationVec, double& err, double BAD_P_FILTER)
     {
         int numPts = in_qMoving.cols();
 
-        Eigen::MatrixXd out_p(3,numPts);
-        Eigen::MatrixXd out_q(3,numPts);
-        findCorrespondences (in_pFixed, in_qMoving, out_p, out_q);
+        Eigen::MatrixXd out_p(Eigen::MatrixXd::Zero(3,numPts));
+        Eigen::MatrixXd out_q(Eigen::MatrixXd::Zero(3,numPts));
+        findCorrespondences (in_pFixed, in_qMoving, out_p, out_q, BAD_P_FILTER);
 
         // *** Subtract the center of the point clouds
         Eigen::Vector3d meanP(out_p.row(0).mean(),out_p.row(1).mean(),out_p.row(2).mean());
@@ -209,7 +225,7 @@ namespace N3dicp
 
     }
 
-    void applyICP(Eigen::MatrixXd& in_pFixed, Eigen::MatrixXd& in_qMoving, Eigen::MatrixXd& final_qMoving, int maxIter, double err)
+    void applyICP(Eigen::MatrixXd& in_pFixed, Eigen::MatrixXd& in_qMoving, Eigen::MatrixXd& final_qMoving, int maxIter, double err, double BAD_P_FILTER)
     {
         int numPts = in_qMoving.cols();
         Eigen::Matrix3d rotMat(Eigen::Matrix3d::Identity());
@@ -218,7 +234,7 @@ namespace N3dicp
         double errIter = 0;
         for( int i = 0; i <= maxIter; i++ )
         {
-            getIcpIteration(in_pFixed, updated_qMoving, rotMat, translVec,errIter);
+            getIcpIteration(in_pFixed, updated_qMoving, rotMat, translVec,errIter, BAD_P_FILTER);
 
             updated_qMoving = rotMat * updated_qMoving + translVec.replicate(1,numPts);
 

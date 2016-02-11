@@ -39,7 +39,8 @@ static const char* MODEL_OUT6_FILENAME = "../src/plyMeshes/_bun315_init.ply";
 // ***************************************************************************
 // SECTION 2
 static const int S2_ICP_MAXITER = 20;
-static const double S2_ICP_MAXERR = 0.2;
+static const double S2_ICP_MAXERR = 0.1;
+static const double S2_ICP_BADPOINTSFILTER = 0.5;
 
 
 // ***************************************************************************
@@ -90,7 +91,7 @@ void SECTION2 () // basic ICP
     // ************************************************************
     int numPts = q.cols();
     Eigen::MatrixXd final_q(3,numPts);
-    applyICP(p, q, final_q, S2_ICP_MAXITER, S2_ICP_MAXERR);
+    applyICP(p, q, final_q, S2_ICP_MAXITER, S2_ICP_MAXERR, S2_ICP_BADPOINTSFILTER);
 
     mesh_45.writeMesh(MODEL_OUT2_INIT_FILENAME);
     // ************************************************************
