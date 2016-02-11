@@ -1,6 +1,7 @@
 #include "icp.h"
 #include <stdio.h>
 #include "converter.h"
+#include <math.h>       /* floor */
 #include <iomanip>      // std::setprecision
 namespace N3dicp
 {
@@ -71,7 +72,84 @@ namespace N3dicp
 
     }
 
-    void getIcpIteration(Eigen::MatrixXd& in_pFixed, Eigen::MatrixXd& in_qMoving, Eigen::Matrix3d& rotationMatrix, Eigen::Vector3d& translationVec)
+    void computeNormals(Eigen::MatrixXd& pEIG, Eigen::MatrixXd& pNormals, int kNN)
+    {
+        int nPts = pEIG.cols(); // actual number of data points
+        // int k = 0; //num of NN to return
+        int dim = 3; // number of dimensions
+        double eps = 0.0; // eps value for the kd search
+        ANNdist sqRad = 0.00005; // returns around 250 - 350 neighbours
+
+        ANNpointArray pANN; // fixed point set
+        ANNpoint queryP;// query point
+        ANNidxArray nnIdx; // near neighbor indices
+        ANNdistArray dists; // near neighbor distances
+        ANNkd_tree* kdTree; // search structure
+
+        pANN = convertEigenMatToANNarray(pEIG);
+        queryP = annAllocPt(dim);
+        nnIdx = new ANNidx[kNN];
+        dists = new ANNdist[kNN];
+        kdTree = new ANNkd_tree( pANN, nPts, dim);
+        // search for the closest neighbour in the kdtree
+        // nPts = 1;
+        for (int i = 0; i < nPts; i++)
+        {
+            // std::cout << "*** i = " << i << std::endl;
+            Eigen::VectorXd thisPoint = pEIG.col(i);
+            queryP = convertEigenVecToANNpoint(thisPoint);
+            // approx fixed-radius kNN search
+
+            // how many points are in my sqRad search?
+            int numNN = kdTree->annkFRSearch(queryP, sqRad,0);
+
+            // std::cout << "*** num neighb = " << numNN <<  "\n";
+
+            if (numNN > kNN)
+            {
+                kdTree->annkFRSearch(queryP, sqRad, kNN, nnIdx, dists, eps);
+
+                // my local point cloud is
+                Eigen::MatrixXd pLocal(3, kNN);
+                for( int j = 0; j < kNN; j++ )
+                {
+                    pLocal.col(j) = pEIG.col(nnIdx[j]);
+                }
+                Eigen::Vector3d meanPLocal(pLocal.row(0).mean(),pLocal.row(1).mean(),pLocal.row(2).mean());
+                Eigen::MatrixXd diff_p = pLocal - meanPLocal.replicate(1,kNN);
+
+                // std::cout << "*** pLocal = " << pLocal <<  "\n";
+                Eigen::Matrix3d qMat(Eigen::Matrix3d::Zero());
+                for( int j = 0; j < kNN; j++ )
+                {
+                    qMat += pLocal.col(j) * pLocal.col(j).transpose();
+                }
+                // qMat = qMat * (1/kNN); // normalize the cov matrix
+
+                // std::cout<< "*** my cov mat = " << qMat << std::endl;
+                //
+                Eigen::JacobiSVD<Eigen::MatrixXd> svd(qMat, Eigen::ComputeFullU | Eigen::ComputeFullV);
+
+                // Eigen::EigenSolver<Eigen::Matrix3d> es(qMat);
+                // std::cout << "The eigenvalues of A are:" << std::endl << es.eigenvalues() << std::endl;
+                // std::cout << "The singular values of A are:" << std::endl << svd.singularValues() << std::endl;
+                //
+                // std::cout << "Its right singular vectors are the columns of the full V matrix:" << std::endl << svd.matrixV() << std::endl;
+
+                // singular values are always sorted in decreasing order!
+                pNormals.col(i) = svd.matrixV().col(2);
+            } // else increase the search radius
+
+        }
+        delete[] nnIdx;
+        delete[] dists;
+        delete kdTree;
+        annDeallocPts(pANN);
+        annDeallocPt(queryP);
+        annClose(); // deallocate any shared memory used for the kd search
+    }
+
+    void getIcpIteration(Eigen::MatrixXd& in_pFixed, Eigen::MatrixXd& in_qMoving, Eigen::Matrix3d& rotationMatrix, Eigen::Vector3d& translationVec, double& err)
     {
         int numPts = in_qMoving.cols();
 
@@ -94,10 +172,10 @@ namespace N3dicp
 
         // // compute the covariance matrix
         Eigen::Matrix3d covMat(Eigen::Matrix3d::Zero());
-        for( int i = 0; i < numPts; i++)
-        {
-            covMat += diff_p.col(i) * diff_q.col(i).transpose();
-        }
+        // for( int i = 0; i < numPts; i++)
+        // {
+        //     covMat += diff_p.col(i) * diff_q.col(i).transpose();
+        // }
         // covMat = covMat * (1/(numPts-1)); // normalize the covariance matrix
 
         // std::cout<< "*** covmat sum" << std::scientific << covMat << std::endl;
@@ -118,6 +196,14 @@ namespace N3dicp
 
         translationVec = meanP - rotationMatrix * meanQ;
 
+        Eigen::MatrixXd errMat(rotationMatrix * diff_q + translationVec.replicate(1,numPts) - diff_p);
+        err = 0;
+        for ( int i = 0; i < numPts; i++)
+        {
+            err += errMat.col(i).squaredNorm();
+        }
+        // err = errMat.sum();
+        std::cout << "*** err = " << err << std::endl;
         // std::cout << "*** rotMat = " << rotationMatrix << "\n\n";
         // std::cout << "*** translVec = " << translationVec << "\n\n";
 
@@ -129,18 +215,42 @@ namespace N3dicp
         Eigen::Matrix3d rotMat(Eigen::Matrix3d::Identity());
         Eigen::Vector3d translVec(0,0,0);
         Eigen::MatrixXd updated_qMoving(in_qMoving);
-
+        double errIter = 0;
         for( int i = 0; i <= maxIter; i++ )
         {
-            getIcpIteration(in_pFixed, updated_qMoving, rotMat, translVec);
+            getIcpIteration(in_pFixed, updated_qMoving, rotMat, translVec,errIter);
 
             updated_qMoving = rotMat * updated_qMoving + translVec.replicate(1,numPts);
 
             // compute error and check if it's smaller than the threshold!
+            if(errIter < err) break;
         }
 
         final_qMoving = updated_qMoving;
 
+    }
+
+    void subsample(Eigen::MatrixXd& pInit, Eigen::MatrixXd& pFinal, float subsamplingRate)
+    {
+        long numPoints = pInit.cols();
+        long newNumPoints = (long)((subsamplingRate/100)*numPoints);
+        // pFinal(3,newNumPoints);
+        int kInit = 0;
+        int stepIdx = (int)(std::floor(100/subsamplingRate));
+
+        std::cout << "Total subsampled points: " << newNumPoints << std::endl;
+        std::cout << "Step size: " << stepIdx << std::endl;
+
+        for(int i = 0; i < newNumPoints; i++)
+        {
+            if (kInit < numPoints)
+            {
+                pFinal.col(i) = pInit.col(kInit);
+                kInit += stepIdx;
+            }
+            else break;
+
+        }
     }
 
 }// namespace N3dicp

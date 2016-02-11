@@ -2,6 +2,8 @@
 #define __PLY_CLASS__
 
 #include <Eigen/Dense>
+#include "ANN/ANN.h"
+#include "icp.h"
 #include <OpenMesh/Core/IO/MeshIO.hh>
 #include <OpenMesh/Core/Mesh/TriMesh_ArrayKernelT.hh>
 
@@ -23,18 +25,18 @@ namespace N3dicp
         static int meshCount;
         // PlyMesh();
         PlyMesh(std::string filename);
+        PlyMesh(Eigen::MatrixXd& pPointCloud);
         PlyMesh(const PlyMesh&);
         ~PlyMesh();
         PlyMesh& operator= (const PlyMesh &pSrc);
         bool writeMesh(std::string filename);
+        void setNormals(Eigen::MatrixXd& pNormals);
         void applyTransformation(Eigen::Matrix4d transfMat);
-        // demean vertices
-        //set colour
+        void addNoise(double noiseStd);
         void setColour(OpenMesh::Vec3uc colour);
-        // get vertices
         void getVecticesE(Eigen::MatrixXd& outVertMat);
-        // set vertices
         void setVerticesE(Eigen::MatrixXd newVertPos);
+        void subsample(float degree = 0.5);
         uint32_t getTotalVertices() { return m_vertNum;}
 
     private:
