@@ -228,17 +228,6 @@ namespace N3dicp
 
     }
     // ***************************************************************************
-    // void PlyMesh::subsample(float degree)
-    // {
-    // m_mesh.request_face_status();
-    // m_mesh.request_edge_status();
-    // m_mesh.request_vertex_status();
-    // for (MyMesh::FaceIter v_it = m_mesh.faces_sbegin();
-    // v_it != m_mesh.faces_end(); ++v_it)
-    // {
-    //     m_mesh.delete_face(*v_it, true);
-    // }
-    // update each vertex with the location of the face center + delete the other vertices
-    // update m_mesh & m_vertNum
-    // }
+
+
 }//namespace N3dicp

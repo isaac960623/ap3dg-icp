@@ -9,6 +9,8 @@ namespace N3dicp
 
     void applyICP(Eigen::MatrixXd& in_pFixed, Eigen::MatrixXd& in_qMoving, Eigen::MatrixXd& final_qMoving, int& out_numIter, double& out_finErr, int maxIter = 500, double errThresh = 0.0001, double BAD_P_FILTER = 0.8);
 
+    void applyICP(Eigen::MatrixXd& in_pFixed, Eigen::MatrixXd& in_qMoving, Eigen::MatrixXd& pNormals, Eigen::MatrixXd& qNormals, Eigen::MatrixXd& final_qMoving, int& out_numIter, double& out_finErr, int maxIter = 500, double errThresh = 0.0001, double BAD_P_FILTER = 0.8, double ANGLE_THRESH = 45);
+
     void computeNormals(Eigen::MatrixXd& pEIG,Eigen::MatrixXd& pNormals, int kNN = 15);
 
     void subsample(Eigen::MatrixXd& pInit, Eigen::MatrixXd& pFinal, float subsamplingRate);

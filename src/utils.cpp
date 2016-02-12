@@ -9,26 +9,53 @@ namespace N3dicp
     }
     Eigen::Matrix4d loadTransformation(int transfNo)
     {
-        Eigen::Matrix4d initTransf;
-        switch (transfNo) {
-            case 1:
-            initTransf << 0.816588, 0.011159, 0.577113, -0.056024,
-            -0.017766, 0.999825, 0.005807, -0.001257,
-            -0.576947, -0.014995, 0.816644, -0.009324,
+        Eigen::Matrix4d initTransf (Eigen::Matrix4d::Identity());
+
+        Eigen::Matrix4d initTransf45_0 (Eigen::Matrix4d::Identity());
+        Eigen::Matrix4d initTransf90_0 (Eigen::Matrix4d::Identity());
+        Eigen::Matrix4d initTransf180_0 (Eigen::Matrix4d::Identity());
+
+        initTransf45_0 << 0.707013, 0.000000, 0.707200, 0.000000,
+        0.000000, 1.000000, 0.000000, 0.000000,
+        -0.707200, 0.000000, 0.707013, 0.000000,
+        0.000000, 0.000000, 0.000000, 1.000000;
+
+        initTransf90_0 << -0.009378, 0.000000, 0.999956, 0.000000,
+        0.000000, 1.000000, 0.000000, 0.000000,
+        -0.999956, 0.000000, -0.009378, 0.000000,
+        0.000000, 0.000000, 0.000000, 1.000000;
+
+        initTransf180_0 << -0.999929, 0.000000, -0.011915, 0.000000,
+        0.000000, 1.000000, 0.000000, 0.000000,
+        0.011915, 0.000000, -0.999929, 0.000000,
+        0.000000, 0.000000, 0.000000, 1.000000;
+
+
+        if(transfNo == 1) { // 00 - 45
+            initTransf << 0.696072, 0.000000, 0.717972, -0.049942,
+            0.000000, 1.000000, 0.000000, 0.000000,
+            -0.717972, 0.000000, 0.696072, 0.000000,
             0.000000, 0.000000, 0.000000, 1.000000;
-
-            // case 2:
-            // initTransf << -0.027151, -0.023013, 0.999366, 0.002352,
-            // 0.010032, 0.999678, 0.023293, -0.001107,
-            // -0.999581, 0.010658, -0.026911, -0.001844,
-            // 0.000000, 0.000000, 0.000000, 1.000000;
-
-            return initTransf;
-
-
         }
-        return Eigen::Matrix4d::Identity();
+        if(transfNo == 2) { // 90
+            initTransf = initTransf90_0;
+        }
+        if(transfNo == 3) {
+            initTransf = initTransf180_0;
+        }
+        if(transfNo == 4) {
+            initTransf = initTransf180_0 * initTransf90_0;
+        }
+        if(transfNo == 5) {
+            initTransf = initTransf45_0 * initTransf180_0 * initTransf90_0;
+        }
+        if(transfNo == 6) { // 45
+            initTransf = initTransf45_0;
+        }
+        return initTransf;
+
     }
+
     void getColourFromList(int idx,OpenMesh::Vec3uc& outColour)
     {
         OpenMesh::Vec3uc purple(92,75,81);

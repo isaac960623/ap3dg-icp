@@ -1,0 +1,583 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Programming/Coding Assignment
+% LaTeX Template
+%
+% This template has been downloaded from:
+% http://www.latextemplates.com
+%
+% Original author:
+% Ted Pavlic (http://www.tedpavlic.com)
+%
+% Note:
+% The \lipsum[#] commands throughout this template generate dummy text
+% to fill the template out. These commands should all be removed when 
+% writing assignment content.
+%
+% This template uses a Perl script as an example snippet of code, most other
+% languages are also usable. Configure them in the "CODE INCLUSION 
+% CONFIGURATION" section.
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%----------------------------------------------------------------------------------------
+%	PACKAGES AND OTHER DOCUMENT CONFIGURATIONS
+%----------------------------------------------------------------------------------------
+
+\documentclass{article}
+
+\usepackage{fancyhdr} % Required for custom headers
+\usepackage{lastpage} % Required to determine the last page for the footer
+\usepackage{extramarks} % Required for headers and footers
+\usepackage[usenames,dvipsnames]{color} % Required for custom colors
+%\usepackage{graphicx}% % Required to insert images
+\usepackage{listings} % Required for insertion of code
+\usepackage{courier} % Required for the courier font
+ \usepackage[pdftex]{graphicx}
+  \graphicspath{{figures/}}
+   \DeclareGraphicsExtensions{.pdf,.jpg,.png}
+  \usepackage[caption=false,font=footnotesize]{subfig}
+%\usepackage[cmex10]{amsmath}
+\usepackage{amsmath,amssymb}
+\interdisplaylinepenalty=2500
+\usepackage{afterpage}
+\newcommand\blankpage{%
+    \null
+    \thispagestyle{empty}%
+    \addtocounter{page}{-1}%
+    \newpage}
+
+
+% Margins
+\topmargin=-0.45in
+\evensidemargin=0in
+\oddsidemargin=0in
+\textwidth=6.5in
+\textheight=9.0in
+\headsep=0.25in
+
+\linespread{1.1} % Line spacing
+
+% Set up the header and footer
+\pagestyle{fancy}
+\lhead{\hmwkAuthorName} % Top left header
+%\chead{\hmwkClass\ (\hmwkClassInstructor\ \hmwkClassTime): \hmwkTitle} % Top center head
+\rhead{\firstxmark} % Top right header
+\lfoot{\lastxmark} % Bottom left footer
+\cfoot{} % Bottom center footer
+\rfoot{Page\ \thepage\ of\ \protect\pageref{LastPage}} % Bottom right footer
+\renewcommand\headrulewidth{0.4pt} % Size of the header rule
+\renewcommand\footrulewidth{0.4pt} % Size of the footer rule
+
+\setlength\parindent{0pt} % Removes all indentation from paragraphs
+
+%----------------------------------------------------------------------------------------
+%	CODE INCLUSION CONFIGURATION
+%----------------------------------------------------------------------------------------
+%
+\usepackage{listings}
+\usepackage{color}
+
+\definecolor{dkgreen}{rgb}{0,0.6,0}
+\definecolor{gray}{rgb}{0.5,0.5,0.5}
+\definecolor{mauve}{rgb}{0.58,0,0.82}
+
+\lstset{frame=tb,
+  language=Python,
+  aboveskip=3mm,
+  belowskip=3mm,
+  showstringspaces=false,
+  columns=flexible,
+  basicstyle={\small\ttfamily},
+  numbers=none,
+  numberstyle=\tiny\color{gray},
+  keywordstyle=\color{blue},
+  commentstyle=\color{dkgreen},
+  stringstyle=\color{mauve},
+  breaklines=true,
+  breakatwhitespace=true,
+  tabsize=3
+}
+
+
+%----------------------------------------------------------------------------------------
+%	DOCUMENT STRUCTURE COMMANDS
+%	Skip this unless you know what you're doing
+%----------------------------------------------------------------------------------------
+
+%% Header and footer for when a page split occurs within a problem environment
+\newcommand{\enterProblemHeader}[1]{
+\nobreak\extramarks{#1}{#1 continued on next page\ldots}\nobreak
+\nobreak\extramarks{#1 (continued)}{#1 continued on next page\ldots}\nobreak
+}
+
+% Header and footer for when a page split occurs between problem environments
+\newcommand{\exitProblemHeader}[1]{
+\nobreak\extramarks{#1 (continued)}{#1 continued on next page\ldots}\nobreak
+\nobreak\extramarks{#1}{}\nobreak
+}
+
+\setcounter{secnumdepth}{0} % Removes default section numbers
+\newcounter{homeworkProblemCounter} % Creates a counter to keep track of the number of problems
+\setcounter{homeworkProblemCounter}{1}
+\newcommand{\homeworkProblemName}{}
+\newenvironment{homeworkProblem}[1][Task \arabic{homeworkProblemCounter}]{ % Makes a new environment called homeworkProblem which takes 1 argument (custom name) but the default is "Problem #"
+\stepcounter{homeworkProblemCounter} % Increase counter for number of problems
+\renewcommand{\homeworkProblemName}{#1} % Assign \homeworkProblemName the name of the problem
+\section{\homeworkProblemName} % Make a section in the document with the custom problem count
+\enterProblemHeader{\homeworkProblemName} % Header and footer within the environment
+}{
+\exitProblemHeader{\homeworkProblemName} % Header and footer after the environment
+}
+
+\newcommand{\problemAnswer}[1]{ % Defines the problem answer command with the content as the only argument
+\noindent\framebox[\columnwidth][c]{\begin{minipage}{0.98\columnwidth}#1\end{minipage}} % Makes the box around the problem answer and puts the content inside
+}
+
+\newcommand{\homeworkSectionName}{}
+\newenvironment{homeworkSection}[1]{ % New environment for sections within homework problems, takes 1 argument - the name of the section
+\renewcommand{\homeworkSectionName}{#1} % Assign \homeworkSectionName to the name of the section from the environment argument
+\subsection{\homeworkSectionName} % Make a subsection with the custom name of the subsection
+\enterProblemHeader{\homeworkProblemName\ [\homeworkSectionName]} % Header and footer within the environment
+}{
+\enterProblemHeader{\homeworkProblemName} % Header and footer after the environment
+}
+
+%----------------------------------------------------------------------------------------
+%	NAME AND CLASS SECTION
+%----------------------------------------------------------------------------------------
+
+\newcommand{\hmwkTitle}{Coursework \#1} % Assignment title
+\newcommand{\hmwkDueDate}{Friday,\ February 12,\ 2016} % Due date
+\newcommand{\hmwkClass}{COMPM080} % Course/class
+\newcommand{\hmwkAuthorName}{Maria Ruxandra Robu} % Your name
+
+%----------------------------------------------------------------------------------------
+%	TITLE PAGE
+%----------------------------------------------------------------------------------------
+
+\title{
+\vspace{2in}
+\textmd{\textbf{\hmwkClass:\ \hmwkTitle}}\\
+\normalsize\vspace{0.1in}\small{Due\ on\ \hmwkDueDate}\\
+%\vspace{0.1in}\large{\textit{\hmwkClassInstructor\ \hmwkClassTime}
+\vspace{3in}
+}
+
+\author{\textbf{\hmwkAuthorName  - 14042500}}
+\date{} % Insert date here if you want it to appear below your name
+
+%----------------------------------------------------------------------------------------
+
+\begin{document}
+
+\maketitle
+
+%----------------------------------------------------------------------------------------
+%	TABLE OF CONTENTS
+%----------------------------------------------------------------------------------------
+
+%\setcounter{tocdepth}{1} % Uncomment this line if you don't want subsections listed in the ToC
+
+%\newpage
+%\tableofcontents
+\newpage
+
+This coursework covers the Iterative Closest Point algorithm, which was first introduced in \cite{basicICP}. Task 2 describes the structure of the point-to-point approach and discusses the strategies chosen for the implementation. Task 3 analyses the convergence of the algorithm under varying degrees of rotation for the initial alignment. Task 4 analyses the performance under Gaussian noise. Task 5 illustrates how subsampling impacts the results of ICP. Task 6 explores several strategies for multi-body registration. Finally, Task 7 computed the normals for each vertex and uses them in the ICP formulation.
+%----------------------------------------------------------------------------------------
+%	PROBLEM 1
+%----------------------------------------------------------------------------------------
+
+% To have just one problem per page, simply put a \clearpage after each problem
+
+\begin{homeworkProblem}
+
+\textbf{Iterative Closest Point (ICP) algorithm}\\
+
+In this section, the point-to-point ICP algorithm was implemented. Given two meshes with a good initial alignment, the algorithm iteratively finds an optimal rigid transformation that best aligns them. ICP is proven to converge to a good solution. However, without a good initialization, it will fall into local minima. \\
+
+Given two point clouds $p$ and $q$:
+\begin{itemize}
+  \item for each $q \in \{q\}_M$ find the closest match in $\{p\}_N$
+  \item reject bad pairs
+  \item center the point clouds at their origin by subtracting their means
+  \item compute the covariance matrix $C$ of the centered $ \tilde{p}$ and $ \tilde{q}$ 
+  \item extract $R$ from the singular value decomposition of $C$ ( $R = V U'$ )
+  \item the translation vector is $t = \bar{p} - R \bar{q}$
+  \item apply the current transformation $q = R q + t$ and start from the beginning
+\end{itemize}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{figure*}[!h]
+\centering
+\subfloat[]{\includegraphics[height=1.5in]{task2_noAlign_before}%
+\label{fig_t2_noalign_b}}
+\hfil
+\subfloat[]{\includegraphics[height=1.5in]{task2_noAlign_after}%
+\label{fig_t2_noalign_a}}
+\caption{Task 2 - a) two meshes with no initial alignment; b) registration of two point clouds (27 iterations; error = 0.118)}
+\label{fig:t2_noalign}
+\end{figure*}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{figure*}[!h]
+\centering
+\subfloat[]{\includegraphics[height=1.5in]{task2_align_before}%
+\label{fig_t2_align_b}}
+\hfil
+\subfloat[]{\includegraphics[height=1.5in]{task2_align_after}%
+\label{fig_t2_align_a}}
+\caption{Task 2 -  a) two meshes with a good initial alignment; b) registration of two point clouds (11 iterations; error = 0.116)}
+\label{fig:t2_align}
+\end{figure*}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+Stopping conditions must be set in order to stop the iterations. In this implementation, a maximum number of iterations is set. Furthermore, if two consecutive errors do not change by more than a threshold, the algorithm is considered to have converged. This additional condition shortens the computation time by stopping unnecessary iterations.\\
+
+The most important step of the algorithm is establishing the correspondences between the two point clouds. In the point-to-point approach, the algorithm finds the closest point to the query point by computing the minimum euclidean distance. In this implementation, the bad pairs are rejected through a threshold. For example, if the distance between a current pair of points is more than 50\% of the maximum distance, the pair is discarded. \\
+
+
+The algorithm was implemented in C++ with the use of the libraries: OpenMesh, Eigen and ANN. The .ply objects were loaded into memory with the OpenMesh mesh reader. Eigen was used for the matrix decompositions and operations. ANN was used for finding the correspondences and computing the normals in Task 7. All of the meshes were coloured differently to easily observe the overlapping regions. The meshes are visualized using MeshLab. The matrices used for initial alignment have been obtained from rough manual alignment in MeshLab. \\
+
+
+The figures \ref{fig:t2_noalign} and \ref{fig:t2_align} illustrate the point-to-point registration for two points clouds. They show two cases which work even without a very good initial alignment, due tothe big overlapping areas. however, in most situations, the algorithm would get stuck into a local minima. 
+
+\end{homeworkProblem}
+\clearpage
+%\clearpage
+%----------------------------------------------------------------------------------------
+%	PROBLEM 2
+%----------------------------------------------------------------------------------------
+
+\begin{homeworkProblem}
+
+\textbf{ICP convergence analysis for different rotations}\\
+
+The mesh M1 was centered at its origin by subtracting the mean $\bar{p}$ from all its points $p$, as shown in Figure \ref{fig_t3_m1_centered}. Once its position is set, incremental rotations are applied to the mesh in the x, y and z axes. Figure  \ref{fig_t3_m3_rot} shows an example for 3 rotations along the x axis. Once we have the initial M1 and the rotated M3, ICP is ran for each rotation. Figure \ref{fig_t3_m3_goodAlign} illustrates the results for the 3 rotations in the example. \\
+
+%\begin{equation}
+%\tilde{p} = p - \bar{p}
+%\end{equation}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{figure*}[!h]
+\centering
+\subfloat[]{\includegraphics[height=1.5in]{t3_m1_centered}%
+\label{fig_t3_m1_centered}}
+\hfil
+\subfloat[]{\includegraphics[height=1.5in]{t3_rotx}%
+\label{fig_t3_m3_rot}}
+\hfil
+\subfloat[]{\includegraphics[height=1.5in]{t3_goodresults}%
+\label{fig_t3_m3_goodAlign}}
+\caption{Task 3 - a) M1 centered at its origin; b) 3 Rotations along the x axis; c) the final registration after ICP is ran for case b)}
+\label{fig:t3_intro}
+\end{figure*}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+The parameters used for this section are:
+\begin{itemize}
+  \item axes: x, y, z
+  \item number of different rotations =  25
+  \item interval of degrees [-50, 50]
+  \item maximum number of iterations for ICP = 50
+  \item error threshold for ICP = 1e-04
+  \item threshold for the bad points rejection = 70\%
+\end{itemize}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{figure*}[!h]
+\centering
+\subfloat[]{\includegraphics[height=1.5in]{task3_xaxis}%
+\label{fig_t3_conv_x}}
+\hfil
+\subfloat[]{\includegraphics[height=1.5in]{task3_yaxis}%
+\label{fig_t3_conv_y}}
+\hfil
+\subfloat[]{\includegraphics[height=1.5in]{task3_zaxis}%
+\label{fig_t3_conv_z}}
+\caption{Task 3 - Convergence Analysis for the 3 axes of rotation}
+\label{fig:t3_conv}
+\end{figure*}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+For each iteration, the final error and number of iterations were saved in a file and plotted with Matlab. The figures \ref{fig:t3_conv} show the basins of convergence for the ICP algorithm by varying the rotation angle on the 3 axes. The minimum error obtained (1.48e-11) was for the z axis at -4 degrees and the maximum (33.64) on the y axis for -33 degrees.\\
+
+Figures \ref{fig:t3_conv} clearly show how ICP can get stuck into local minima. For example, if an initial alignment is made with a rotation on the z axis, at around 30 degrees, the algorithm would find close solutions to the starting point. however, it will not jump and find the global solution like in the basin of convergence. 
+
+%\problemAnswer{
+%\begin{center}
+%%\includegraphics[width=0.75\columnwidth]{example_figure} % Example image
+%\end{center}
+%
+%\lipsum[3-5]
+%}
+\end{homeworkProblem}
+\clearpage
+%----------------------------------------------------------------------------------------
+
+\begin{homeworkProblem}
+
+
+\textbf{ICP convergence analysis with noisy data}\\
+
+In this section, increasing amounts of noise are added to mesh M2  and ICP is computed for each case. In order to generate the graphs in \ref{fig:t4_noisyAnalysis}, noise was added in 15 steps between 1e-04 and 5e-3 standard deviations. 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{figure*}[!h]
+\centering
+\subfloat[]{\includegraphics[height=2in]{t4_noiseBoth}%
+\label{fig_t4_noiseBoth}}
+\caption{Task 4 - Example of bunny with different levels of noise. Orange corresponds to 55e-04 standard deviation and red to 1e-03 standard deviation}
+\label{fig:t4_noisyEx}
+\end{figure*}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{figure*}[!h]
+\centering
+\subfloat[]{\includegraphics[height=2.3in]{task4_noiseComp}%
+\label{fig_t4_noisyComp}}
+\hfil
+\subfloat[]{\includegraphics[height=2.3in]{task4_noiseNonoise}%
+\label{fig_t4_noiseNoNoise}}
+\caption{Task 4 - Noise analysis: a) error comparison for increasing amounts of noise; b) shows the error against the number of iterations needed for convergence}
+\label{fig:t4_noisyAnalysis}
+\end{figure*}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+Figure \ref{fig:t4_noisyAnalysis} shows increasing errors for noisy data. however, the algorithm still manages to find a good registration between the two meshes. In this case, the final values of errors cannot really be trusted given the amount of noise that was added as a perturbation on the vertices. 
+
+
+\end{homeworkProblem}
+\clearpage
+
+%----------------------------------------------------------------------------------------
+
+\begin{homeworkProblem}
+  
+\textbf{ICP convergence analysis with subsampling}\\
+
+The mesh M2 was subsampled by uniformly sampling the point cloud. In the first implementation, every n-th point would be selected for the subsampled mesh. However, the resulting point cloud was truncated or with missing regions. In this implementation, the whole bunny is well represented for percentages of subsampling between 1 and 100 (for example, figure \ref{fig:t5_subsEx}). The M1 mesh remains fixed the whole time and all its points are used in the computation. This allows for good and fast registration even for high subsampling rates. Figure \ref{fig:t5_subsampling} shows the analysis of the algorithm for this approach. ICP manages to correctly align the two point clouds faster, as long as one mesh is kept intact and only one is subsampled.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{figure*}[!h]
+\centering
+{\includegraphics[height=2in]{task5_subsampled35}%
+\label{fig_t5_subsampled35}}
+\caption{Task 5 - Example of subsampling - 35\%}
+\label{fig:t5_subsEx}
+\end{figure*}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{figure*}[!h]
+\centering
+\subfloat[]{\includegraphics[height=2.3in]{task5_errComp}%
+\label{fig_t5_subsErrComp}}
+\hfil
+\subfloat[]{\includegraphics[height=2.3in]{task5_iterationsComp}%
+\label{fig_t5_subsIterComp}}
+\caption{Task 5 - Error analysis for alignment with increasing subsampling rates}
+\label{fig:t5_subsampling}
+\end{figure*}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\end{homeworkProblem}
+\clearpage
+
+%----------------------------------------------------------------------------------------
+
+\begin{homeworkProblem}
+  
+\textbf{Multi-body Registration}\\
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{figure*}[!h]
+\centering
+\subfloat[]{\includegraphics[height=2in]{t6_initAlign_no}}%
+\hfil
+\subfloat[]{\includegraphics[height=2in]{t6_initAlign_yes}}%
+\caption{Task 6 - a) no initial alignment; b) the meshes with initial alignment}
+\label{fig:t6_multibody_into}
+\end{figure*}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{figure*}[!h]
+\centering
+\subfloat[]{\includegraphics[height=2in]{t6_subs}}%
+\hfil
+\subfloat[]{\includegraphics[height=2in]{t6_pairs}}%
+\caption{Task 6 - a) multi-body ICP with subsampling (Strategy 1); b) multi-body ICP in pairs (Strategy 2)}
+\label{fig:t6_multibody_badex}
+\end{figure*}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+Several strategies were tried for this task. Initially, I planned on using the functions developed in the previous tasks to make the algorithm faster.\\
+
+Strategy 1:
+\begin{itemize}
+	\item run ICP on the first 2 meshes
+	\item merge the resulting alignment
+	\item subsample mesh M3
+	\item run ICP between the merged mesh and the subsampled version
+	\item go to step 3 and repeat for all the other meshes
+\end{itemize}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{figure*}[!h]
+\centering
+\subfloat[]{\includegraphics[height=2in]{t6_final_good}}%
+\hfil
+\subfloat[]{\includegraphics[height=2in]{t6_final_bad}}%
+\caption{Task 6 - Multi-body alignment with normals (Strategy 3). a) good alignment between most of the meshes; b) issues with meshes that did not have a good initial alignment or that did not have enough overlapping regions }
+\label{fig:t6_multibody_withNormals}
+\end{figure*}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+Several issues were observed. Firstly, the merged mesh gathers a high number of unnecessary points in overlapping regions. So, the computation time increases very fast, despite the subsampling used in the new meshes. I tried to uniformly subsampling the merged mesh as well. however, the results were not promising, as discussed in Task 5. In this situation, an adaptive algorithm to merge the mesh into a global model should provide better results. Another downside of this approach is that any errors obtained in the first few steps get carried throughout all the alignment steps.\\
+
+
+Strategy 2:
+\begin{itemize}
+	\item keep mesh M1 fixed
+	\item align mesh M2 to M1
+	\item align mesh M3 to the new position of M2
+	\item continue until all the meshes are aligned
+\end{itemize}
+
+This pair-alignment strategy would get rid of the drifting problem caused by the propagation of errors. Better results were obtained than in the first strategy. however, there were still high discontinuities in the final mesh of the bunny.\\
+
+
+
+Strategy 3:
+\begin{itemize}
+	\item keep mesh M1 fixed
+	\item compute normals of all the meshes
+	\item include normals in the ICP
+	\item align meshes pair by pair
+\end{itemize}
+
+
+The third approach to multi-body alignment uses normals to restrain the ICP formulation. The method to compute the normals is described in Task 7. This step is included in te algorithm as a way to reject bad correspondences. If the dot product of the normals is shown to be lower than a threshold, the pair of points is rejected. The aim would be for their dot product to be as close to 1 as possible (parallel normals). The choice of angle for the threshold is detailed in Task 7. In this implementation, normals that were further apart then 5 degrees are discarded. \\
+
+Strategy 3 proved to show the best results with faster computation times, as shown in figure \ref{fig:t6_multibody_withNormals} (the strict threshold on the normals rejects a high number of points). However, not all of the meshes could be aligned perfectly, due to bad initial alignment or insufficient overlapping areas. The errors for the  multi-body alignment of the bunny dataset are:
+\begin{itemize}
+	\item mesh45 - 14 iterations, error = 0.0042
+	\item mesh90 - 13 iterations, error = 0.243
+	\item mesh180 - 7 iterations, error = 0.018
+	\item mesh 270 - 9 iterations, error = 0.035
+	\item mesh315 - 19 iterations, error = 0.124
+\end{itemize} 
+
+
+
+\end{homeworkProblem}
+\clearpage
+
+
+
+%----------------------------------------------------------------------------------------
+\begin{homeworkProblem}
+  
+\textbf{ICP with normals}\\
+
+Normals were estimated at every point in the mesh by following the next steps:
+\begin{itemize}
+	\item for each point p on a mesh
+	\item find its k nearest neighbours 
+	\item compute the covariance matrix and find its eigenvectors
+	\item the normal at point p is the eigenvector corresponding to the smallest eigenvalue
+\end{itemize}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{figure*}[!h]
+\centering
+\subfloat[]{\includegraphics[height=2in]{t7_bigangle}}%
+\hfil
+\subfloat[]{\includegraphics[height=2in]{t7_lowangle}}%
+\caption{Task 7 - Threshold for the angle between the normals - comparison: a) angle = 30 degrees, error = 1.24, iterations = 13; b) angle = 5 degrees, error = 0.018, iterations = 7}
+\label{fig:t7_angleAnalysis}
+\end{figure*}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+In this implementation, k was chosen to be 10 in all the iterations. The closest neighbours are found by using kdtrees with the ANN library. A search radius of 5e-05 is used. This value was set empirically because it returns around 250-350 neighbours for a mesh of \~ 40000 vertices. \\
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{figure*}[!h]
+\centering
+\subfloat[]{\includegraphics[height=1.5in]{t7_m45-90-bad}}%
+\hfil
+\subfloat[]{\includegraphics[height=1.5in]{t7_m45-90-good}}%
+\caption{Task 7 - Alignment bunny45-bunny90: a) bad alignment (error = 0.139) - parameters used: angle for the normal criteria: 5 degrees, distance rejection threshold = 50\%; b) good alignment (error = 0.02) - parameters used: angle for the normal criteria: 5 degrees, distance rejection threshold = 30\% }
+\label{fig:t7_4590meshesEx}
+\end{figure*}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+Figure \ref{fig:t7_4590meshesEx} illustrates a difficult case of registration. The overlap between bunny45 and bunny90 is not sufficient and leads to erroneous solutions for the final alignment. However, with strict values for the rejection of bad correspondences, a good alignment can be obtained. \\ 
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{figure*}[!h]
+\centering
+\subfloat[]{\includegraphics[height=1.5in]{t7_nEx_1}}%
+\hfil
+\subfloat[]{\includegraphics[height=1.5in]{t7_nEx_3}}%
+\hfil
+\subfloat[]{\includegraphics[height=1.5in]{t7_nEx_4}}%
+\caption{Task 7 - a) bunny with normals; b) the orientation of several normals is flipped; c) problems with normals at the boundaries }
+\label{fig:t7_problemNormals}
+\end{figure*}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+So, the smallest eigenvector returns the direction of the normal, but not the orientation. However, for this task, orientation is not necessary. Several other problems appear at the boundaries of the mesh where the plane fit to the k neighbours does not represent the surface well, as shown in figure \ref{fig:t7_problemNormals}.\\
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{figure*}[!h]
+\centering
+{\includegraphics[height=1in]{swirls}}%
+\caption{Task 7 - Limitation of the current algorithm. If we don't take into consideration the orientation of the normals, this situation will result in a good correspondence between the selected points}
+\label{fig:t7_limitation}
+\end{figure*}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+The normals were incorporated in ICP as a criterion for the rejection of bad correspondences. For each pair, the dot product of the two normals is computed to obtain the angle between them. Tests were conducted to find an optimal angle for which the convergence is faster and closer to the optimal transformation. This approach improves the accuracy of the final results, given that the remaining correspondences (after the rejection of bad points) are more likely to be correct. Consequently, given that less points will be taken into consideration, the algorithm performs slightly faster. Figure \ref{fig:t7_limitation} illustrates a situation in which this implementation fails. A more robust formulation could be made by including the orientations of the normals. For the moment, a strong assumption is a good initial alignment between the meshes. \\ 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{figure*}[!h]
+\centering
+\subfloat[]{\includegraphics[height=1.8in]{t7_normal_initAlign}}%
+\hfil
+\subfloat[]{\includegraphics[height=1.8in]{t7_nonormal_fit}}%
+\hfil
+\subfloat[]{\includegraphics[height=1.8in]{t7_normal_fit}}%
+\caption{Task 7 - Alignment bunny00-bunny45: a) initial alignment; b) alignment without normals (error = 0.0042, iterations = 14); c) alignment with normals (error = 0.116, iterations = 32)}
+\label{fig:t7_normalComp}
+\end{figure*}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{figure*}[!h]
+\centering
+{\includegraphics[height=2.5in]{task7_errComp0045}}%
+\caption{Task 7 - Error comparison (ICP - bunny00 and bunny45) between ICP with normals and without}
+\label{fig:t7_errComp}
+\end{figure*}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+Figure \ref{fig:t7_errComp} shows that ICP with normals converges faster and with lower errors for the alignment between bunny00 and bunny45.
+
+
+\end{homeworkProblem}
+
+
+%----------------------------------------------------------------------------------------
+%\afterpage{\blankpage}
+\clearpage
+\bibliographystyle{ieeetr}
+\bibliography{ap3dgLIB}
+
+\end{document}

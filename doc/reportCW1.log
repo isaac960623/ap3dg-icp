@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015) (preloaded format=pdflatex 2015.10.2)  11 FEB 2016 22:56
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015) (preloaded format=pdflatex 2015.10.2)  12 FEB 2016 22:26
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -207,6 +207,12 @@ Package: amsfonts 2013/01/14 v3.01 Basic AMSFonts support
 LaTeX Font Info:    Overwriting math alphabet `\mathfrak' in version `bold'
 (Font)                  U/euf/m/n --> U/euf/b/n on input line 106.
 ))
+(/usr/local/texlive/2015/texmf-dist/tex/latex/tools/afterpage.sty
+Package: afterpage 2014/10/28 v1.08 After-Page Package (DPC)
+\AP@output=\toks22
+\AP@partial=\box30
+\AP@footins=\box31
+)
 (/usr/local/texlive/2015/texmf-dist/tex/latex/listings/lstlang1.sty
 File: lstlang1.sty 2014/09/06 1.5e listings language file
 )
@@ -215,35 +221,35 @@ File: lstlang1.sty 2014/09/06 1.5e listings language file
 (./reportCW1.aux)
 \openout1 = `reportCW1.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 165.
-LaTeX Font Info:    ... okay on input line 165.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 165.
-LaTeX Font Info:    ... okay on input line 165.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 165.
-LaTeX Font Info:    ... okay on input line 165.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 165.
-LaTeX Font Info:    ... okay on input line 165.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 165.
-LaTeX Font Info:    ... okay on input line 165.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 165.
-LaTeX Font Info:    ... okay on input line 165.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 171.
+LaTeX Font Info:    ... okay on input line 171.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 171.
+LaTeX Font Info:    ... okay on input line 171.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 171.
+LaTeX Font Info:    ... okay on input line 171.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 171.
+LaTeX Font Info:    ... okay on input line 171.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 171.
+LaTeX Font Info:    ... okay on input line 171.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 171.
+LaTeX Font Info:    ... okay on input line 171.
 Package lastpage Info: Please have a look at the pageslts package at
 (lastpage)             https://www.ctan.org/pkg/pageslts
-(lastpage)             ! on input line 165.
+(lastpage)             ! on input line 171.
 
 (/usr/local/texlive/2015/texmf-dist/tex/context/base/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
 \scratchcounter=\count116
 \scratchdimen=\dimen126
-\scratchbox=\box30
+\scratchbox=\box32
 \nofMPsegments=\count117
 \nofMParguments=\count118
-\everyMPshowfont=\toks22
+\everyMPshowfont=\toks23
 \MPscratchCnt=\count119
 \MPscratchDim=\dimen127
 \MPnumerator=\count120
 \makeMPintoPDFobject=\count121
-\everyMPtoPDFconversion=\toks23
+\everyMPtoPDFconversion=\toks24
 )
 \c@lstlisting=\count122
  (/usr/local/texlive/2015/texmf-dist/tex/generic/oberdiek/pdftexcmds.sty
@@ -296,204 +302,421 @@ e
 Package caption Info: Begin \AtBeginDocument code.
 Package caption Info: subfig package v1.3 is loaded.
 Package caption Info: End \AtBeginDocument code.
-LaTeX Font Info:    Try loading font information for U+msa on input line 167.
+LaTeX Font Info:    Try loading font information for U+msa on input line 173.
 
 (/usr/local/texlive/2015/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Try loading font information for U+msb on input line 167.
+LaTeX Font Info:    Try loading font information for U+msb on input line 173.
 
 (/usr/local/texlive/2015/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 ) [1
 
 {/usr/local/texlive/2015/texmf-var/fonts/map/pdftex/updmap/pdftex.map}]
-Underfull \hbox (badness 10000) in paragraph at lines 188--189
-
- []
-
-<figures/task2_noAlign_before.png, id=9, 460.72125pt x 429.605pt>
-File: figures/task2_noAlign_before.png Graphic file (type png)
-
-<use figures/task2_noAlign_before.png>
-Package pdftex.def Info: figures/task2_noAlign_before.png used on input line 19
-5.
-(pdftex.def)             Requested size: 155.01218pt x 144.54pt.
-
-<figures/task2_noAlign_after.png, id=11, 472.76625pt x 413.545pt>
-File: figures/task2_noAlign_after.png Graphic file (type png)
-
-<use figures/task2_noAlign_after.png>
-Package pdftex.def Info: figures/task2_noAlign_after.png used on input line 198
-.
-(pdftex.def)             Requested size: 165.23982pt x 144.54pt.
-
-<figures/task2_align_before.png, id=12, 465.74pt x 482.80376pt>
-File: figures/task2_align_before.png Graphic file (type png)
-
-<use figures/task2_align_before.png>
-Package pdftex.def Info: figures/task2_align_before.png used on input line 208.
-
-(pdftex.def)             Requested size: 139.4317pt x 144.54pt.
-
-<figures/task2_align_after.png, id=13, 469.755pt x 470.75874pt>
-File: figures/task2_align_after.png Graphic file (type png)
-
-<use figures/task2_align_after.png>
-Package pdftex.def Info: figures/task2_align_after.png used on input line 211.
-(pdftex.def)             Requested size: 144.23198pt x 144.54pt.
-
-Underfull \hbox (badness 10000) in paragraph at lines 228--229
+Underfull \hbox (badness 10000) in paragraph at lines 194--195
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 230--231
+Underfull \hbox (badness 10000) in paragraph at lines 196--197
 
  []
 
-<figures/t3_m1_centered.png, id=14, 477.785pt x 478.78876pt>
-File: figures/t3_m1_centered.png Graphic file (type png)
-
-<use figures/t3_m1_centered.png>
-Package pdftex.def Info: figures/t3_m1_centered.png used on input line 242.
-(pdftex.def)             Requested size: 108.17499pt x 108.405pt.
-
-<figures/t3_rotx.png, id=15, 488.82625pt x 443.6575pt>
-File: figures/t3_rotx.png Graphic file (type png)
-
-<use figures/t3_rotx.png>
-Package pdftex.def Info: figures/t3_rotx.png used on input line 245.
-(pdftex.def)             Requested size: 119.43901pt x 108.405pt.
-
-<figures/t3_goodresults.png, id=16, 401.5pt x 344.28625pt>
-File: figures/t3_goodresults.png Graphic file (type png)
-
-<use figures/t3_goodresults.png>
-Package pdftex.def Info: figures/t3_goodresults.png used on input line 248.
-(pdftex.def)             Requested size: 126.41803pt x 108.405pt.
-
-
-LaTeX Warning: `h' float specifier changed to `ht'.
-
-LaTeX Font Info:    Try loading font information for OMS+cmr on input line 257.
+LaTeX Font Info:    Try loading font information for OMS+cmr on input line 200.
 
 (/usr/local/texlive/2015/texmf-dist/tex/latex/base/omscmr.fd
 File: omscmr.fd 2014/09/29 v2.5h Standard LaTeX font definitions
 )
 LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <10> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 257.
- [2 <./figures/task2_noAlign_before.png> <./figures/task2_noAlign_after.png> <.
-/figures/task2_align_before.png> <./figures/task2_align_after.png>]
-<figures/task3_xaxis.png, id=27, 562.1pt x 421.575pt>
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 200.
+
+<figures/task2_noAlign_before.png, id=9, 460.72125pt x 429.605pt>
+File: figures/task2_noAlign_before.png Graphic file (type png)
+
+<use figures/task2_noAlign_before.png>
+Package pdftex.def Info: figures/task2_noAlign_before.png used on input line 21
+3.
+(pdftex.def)             Requested size: 116.25562pt x 108.405pt.
+
+<figures/task2_noAlign_after.png, id=11, 472.76625pt x 413.545pt>
+File: figures/task2_noAlign_after.png Graphic file (type png)
+
+<use figures/task2_noAlign_after.png>
+Package pdftex.def Info: figures/task2_noAlign_after.png used on input line 216
+.
+(pdftex.def)             Requested size: 123.92625pt x 108.405pt.
+
+<figures/task2_align_before.png, id=12, 465.74pt x 482.80376pt>
+File: figures/task2_align_before.png Graphic file (type png)
+
+<use figures/task2_align_before.png>
+Package pdftex.def Info: figures/task2_align_before.png used on input line 226.
+
+(pdftex.def)             Requested size: 104.57378pt x 108.405pt.
+
+<figures/task2_align_after.png, id=13, 469.755pt x 470.75874pt>
+File: figures/task2_align_after.png Graphic file (type png)
+
+<use figures/task2_align_after.png>
+Package pdftex.def Info: figures/task2_align_after.png used on input line 229.
+(pdftex.def)             Requested size: 108.1704pt x 108.405pt.
+
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 235--236
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 237--238
+
+ []
+
+[2 <./figures/task2_noAlign_before.png> <./figures/task2_noAlign_after.png>]
+Underfull \hbox (badness 10000) in paragraph at lines 240--241
+
+ []
+
+[3 <./figures/task2_align_before.png> <./figures/task2_align_after.png>]
+Underfull \hbox (badness 10000) in paragraph at lines 254--255
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 256--257
+
+ []
+
+<figures/t3_m1_centered.png, id=30, 477.785pt x 478.78876pt>
+File: figures/t3_m1_centered.png Graphic file (type png)
+
+<use figures/t3_m1_centered.png>
+Package pdftex.def Info: figures/t3_m1_centered.png used on input line 266.
+(pdftex.def)             Requested size: 108.17499pt x 108.405pt.
+
+<figures/t3_rotx.png, id=31, 488.82625pt x 443.6575pt>
+File: figures/t3_rotx.png Graphic file (type png)
+
+<use figures/t3_rotx.png>
+Package pdftex.def Info: figures/t3_rotx.png used on input line 269.
+(pdftex.def)             Requested size: 119.43901pt x 108.405pt.
+
+<figures/t3_goodresults.png, id=32, 401.5pt x 344.28625pt>
+File: figures/t3_goodresults.png Graphic file (type png)
+
+<use figures/t3_goodresults.png>
+Package pdftex.def Info: figures/t3_goodresults.png used on input line 272.
+(pdftex.def)             Requested size: 126.41803pt x 108.405pt.
+
+<figures/task3_xaxis.png, id=33, 562.1pt x 421.575pt>
 File: figures/task3_xaxis.png Graphic file (type png)
 
 <use figures/task3_xaxis.png>
-Package pdftex.def Info: figures/task3_xaxis.png used on input line 269.
+Package pdftex.def Info: figures/task3_xaxis.png used on input line 294.
 (pdftex.def)             Requested size: 144.53867pt x 108.405pt.
 
-<figures/task3_yaxis.png, id=28, 562.1pt x 421.575pt>
+<figures/task3_yaxis.png, id=34, 562.1pt x 421.575pt>
 File: figures/task3_yaxis.png Graphic file (type png)
 
 <use figures/task3_yaxis.png>
-Package pdftex.def Info: figures/task3_yaxis.png used on input line 272.
+Package pdftex.def Info: figures/task3_yaxis.png used on input line 297.
 (pdftex.def)             Requested size: 144.53867pt x 108.405pt.
 
-<figures/task3_zaxis.png, id=29, 562.1pt x 421.575pt>
+<figures/task3_zaxis.png, id=35, 562.1pt x 421.575pt>
 File: figures/task3_zaxis.png Graphic file (type png)
 
 <use figures/task3_zaxis.png>
-Package pdftex.def Info: figures/task3_zaxis.png used on input line 275.
+Package pdftex.def Info: figures/task3_zaxis.png used on input line 300.
 (pdftex.def)             Requested size: 144.53867pt x 108.405pt.
 
-Underfull \hbox (badness 10000) in paragraph at lines 307--308
+Underfull \hbox (badness 10000) in paragraph at lines 306--307
 
  []
 
-<figures/t4_noiseBoth.png, id=30, 501.875pt x 463.7325pt>
+[4
+
+ <./figures/t3_m1_centered.png> <./figures/t3_rotx.png> <./figures/t3_goodresul
+ts.png> <./figures/task3_xaxis.png (PNG copy)> <./figures/task3_yaxis.png (PNG 
+copy)> <./figures/task3_zaxis.png (PNG copy)>] [5]
+Underfull \hbox (badness 10000) in paragraph at lines 324--325
+
+ []
+
+<figures/t4_noiseBoth.png, id=45, 501.875pt x 463.7325pt>
 File: figures/t4_noiseBoth.png Graphic file (type png)
 
 <use figures/t4_noiseBoth.png>
-Package pdftex.def Info: figures/t4_noiseBoth.png used on input line 319.
+Package pdftex.def Info: figures/t4_noiseBoth.png used on input line 332.
 (pdftex.def)             Requested size: 156.42967pt x 144.54pt.
 
-
-LaTeX Warning: `h' float specifier changed to `ht'.
-
-<figures/task4_noiseComp.png, id=31, 562.1pt x 421.575pt>
+<figures/task4_noiseComp.png, id=46, 562.1pt x 421.575pt>
 File: figures/task4_noiseComp.png Graphic file (type png)
 
 <use figures/task4_noiseComp.png>
-Package pdftex.def Info: figures/task4_noiseComp.png used on input line 329.
+Package pdftex.def Info: figures/task4_noiseComp.png used on input line 342.
 (pdftex.def)             Requested size: 221.62823pt x 166.2212pt.
 
-<figures/task4_noiseNonoise.png, id=32, 562.1pt x 421.575pt>
+<figures/task4_noiseNonoise.png, id=47, 562.1pt x 421.575pt>
 File: figures/task4_noiseNonoise.png Graphic file (type png)
 
 <use figures/task4_noiseNonoise.png>
-Package pdftex.def Info: figures/task4_noiseNonoise.png used on input line 332.
+Package pdftex.def Info: figures/task4_noiseNonoise.png used on input line 345.
 
 (pdftex.def)             Requested size: 221.62823pt x 166.2212pt.
+ [6
 
-
-LaTeX Warning: `h' float specifier changed to `ht'.
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 345--346
+ <./figures/t4_noiseBoth.png> <./figures/task4_noiseComp.png (PNG copy)> <./fig
+ures/task4_noiseNonoise.png (PNG copy)>]
+Underfull \hbox (badness 10000) in paragraph at lines 361--362
 
  []
 
-<figures/task5_subsampled35.png, id=33, 457.71pt x 455.7025pt>
+<figures/task5_subsampled35.png, id=52, 457.71pt x 455.7025pt>
 File: figures/task5_subsampled35.png Graphic file (type png)
 
 <use figures/task5_subsampled35.png>
-Package pdftex.def Info: figures/task5_subsampled35.png used on input line 352.
+Package pdftex.def Info: figures/task5_subsampled35.png used on input line 368.
 
-(pdftex.def)             Requested size: 166.95451pt x 166.2212pt.
- [3 <./figures/t3_m1_centered.png> <./figures/t3_rotx.png> <./figures/t3_goodre
-sults.png> <./figures/task3_xaxis.png (PNG copy)> <./figures/task3_yaxis.png (P
-NG copy)> <./figures/task3_zaxis.png (PNG copy)>]
+(pdftex.def)             Requested size: 145.17813pt x 144.54pt.
 
-LaTeX Warning: `h' float specifier changed to `ht'.
+<figures/task5_errComp.png, id=53, 562.1pt x 421.575pt>
+File: figures/task5_errComp.png Graphic file (type png)
+
+<use figures/task5_errComp.png>
+Package pdftex.def Info: figures/task5_errComp.png used on input line 380.
+(pdftex.def)             Requested size: 221.62823pt x 166.2212pt.
+
+<figures/task5_iterationsComp.png, id=54, 562.1pt x 421.575pt>
+File: figures/task5_iterationsComp.png Graphic file (type png)
+
+<use figures/task5_iterationsComp.png>
+Package pdftex.def Info: figures/task5_iterationsComp.png used on input line 38
+3.
+(pdftex.def)             Requested size: 221.62823pt x 166.2212pt.
+ [7
+
+ <./figures/task5_subsampled35.png> <./figures/task5_errComp.png (PNG copy)> <.
+/figures/task5_iterationsComp.png (PNG copy)>]
+Underfull \hbox (badness 10000) in paragraph at lines 396--397
+
+ []
+
+<figures/t6_initAlign_no.png, id=60, 486.81876pt x 454.69875pt>
+File: figures/t6_initAlign_no.png Graphic file (type png)
+
+<use figures/t6_initAlign_no.png>
+Package pdftex.def Info: figures/t6_initAlign_no.png used on input line 401.
+(pdftex.def)             Requested size: 154.75266pt x 144.54pt.
+
+<figures/t6_initAlign_yes.png, id=61, 455.7025pt x 413.545pt>
+File: figures/t6_initAlign_yes.png Graphic file (type png)
+
+<use figures/t6_initAlign_yes.png>
+Package pdftex.def Info: figures/t6_initAlign_yes.png used on input line 403.
+(pdftex.def)             Requested size: 159.27574pt x 144.54pt.
+
+<figures/t6_subs.png, id=62, 444.66125pt x 410.53375pt>
+File: figures/t6_subs.png Graphic file (type png)
+
+<use figures/t6_subs.png>
+Package pdftex.def Info: figures/t6_subs.png used on input line 412.
+(pdftex.def)             Requested size: 156.54973pt x 144.54pt.
+
+<figures/t6_pairs.png, id=63, 443.6575pt x 437.635pt>
+File: figures/t6_pairs.png Graphic file (type png)
+
+<use figures/t6_pairs.png>
+Package pdftex.def Info: figures/t6_pairs.png used on input line 414.
+(pdftex.def)             Requested size: 146.52927pt x 144.54pt.
+
+Underfull \hbox (badness 10000) in paragraph at lines 420--421
+
+ []
+
+<figures/t6_final_good.png, id=64, 452.69125pt x 445.665pt>
+File: figures/t6_final_good.png Graphic file (type png)
+
+<use figures/t6_final_good.png>
+Package pdftex.def Info: figures/t6_final_good.png used on input line 433.
+(pdftex.def)             Requested size: 146.81897pt x 144.54pt.
+
+<figures/t6_final_bad.png, id=65, 441.65pt x 450.68375pt>
+File: figures/t6_final_bad.png Graphic file (type png)
+
+<use figures/t6_final_bad.png>
+Package pdftex.def Info: figures/t6_final_bad.png used on input line 435.
+(pdftex.def)             Requested size: 141.64087pt x 144.54pt.
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 365--366
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 440--441
+
+ []
+
+[8
+
+ <./figures/t6_initAlign_no.png> <./figures/t6_initAlign_yes.png> <./figures/t6
+_subs.png> <./figures/t6_pairs.png>]
+Underfull \hbox (badness 10000) in paragraph at lines 451--452
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 374--375
+Underfull \hbox (badness 10000) in paragraph at lines 464--465
 
  []
 
+[9 <./figures/t6_final_good.png> <./figures/t6_final_bad.png>] [10]
+Underfull \hbox (badness 10000) in paragraph at lines 485--486
 
+ []
+
+<figures/t7_bigangle.png, id=81, 427.5975pt x 442.65375pt>
+File: figures/t7_bigangle.png Graphic file (type png)
+
+<use figures/t7_bigangle.png>
+Package pdftex.def Info: figures/t7_bigangle.png used on input line 499.
+(pdftex.def)             Requested size: 139.62653pt x 144.54pt.
+
+<figures/t7_lowangle.png, id=82, 426.59375pt x 437.635pt>
+File: figures/t7_lowangle.png Graphic file (type png)
+
+<use figures/t7_lowangle.png>
+Package pdftex.def Info: figures/t7_lowangle.png used on input line 501.
+(pdftex.def)             Requested size: 140.89352pt x 144.54pt.
+
+Underfull \hbox (badness 10000) in paragraph at lines 506--507
+
+ []
+
+<figures/t7_m45-90-bad.png, id=83, 420.57124pt x 374.39874pt>
+File: figures/t7_m45-90-bad.png Graphic file (type png)
+
+<use figures/t7_m45-90-bad.png>
+Package pdftex.def Info: figures/t7_m45-90-bad.png used on input line 511.
+(pdftex.def)             Requested size: 121.77pt x 108.405pt.
+
+<figures/t7_m45-90-good.png, id=84, 401.5pt x 375.4025pt>
+File: figures/t7_m45-90-good.png Graphic file (type png)
+
+<use figures/t7_m45-90-good.png>
+Package pdftex.def Info: figures/t7_m45-90-good.png used on input line 513.
+(pdftex.def)             Requested size: 115.9419pt x 108.405pt.
+
+Underfull \hbox (badness 10000) in paragraph at lines 519--520
+
+ []
+
+[11
+
+ <./figures/t7_bigangle.png> <./figures/t7_lowangle.png> <./figures/t7_m45-90-b
+ad.png> <./figures/t7_m45-90-good.png>]
+<figures/t7_nEx_1.png, id=92, 469.755pt x 421.575pt>
+File: figures/t7_nEx_1.png Graphic file (type png)
+
+<use figures/t7_nEx_1.png>
+Package pdftex.def Info: figures/t7_nEx_1.png used on input line 525.
+(pdftex.def)             Requested size: 120.79303pt x 108.405pt.
+
+<figures/t7_nEx_3.png, id=93, 458.71375pt x 423.5825pt>
+File: figures/t7_nEx_3.png Graphic file (type png)
+
+<use figures/t7_nEx_3.png>
+Package pdftex.def Info: figures/t7_nEx_3.png used on input line 527.
+(pdftex.def)             Requested size: 117.39392pt x 108.405pt.
+
+<figures/t7_nEx_4.png, id=94, 691.58376pt x 423.5825pt>
+File: figures/t7_nEx_4.png Graphic file (type png)
+
+<use figures/t7_nEx_4.png>
+Package pdftex.def Info: figures/t7_nEx_4.png used on input line 529.
+(pdftex.def)             Requested size: 176.98996pt x 108.405pt.
+
+Underfull \hbox (badness 10000) in paragraph at lines 535--536
+
+ []
+
+<figures/swirls.png, id=95, 293.095pt x 315.1775pt>
+File: figures/swirls.png Graphic file (type png)
+ <use figures/swirls.png>
+Package pdftex.def Info: figures/swirls.png used on input line 540.
+(pdftex.def)             Requested size: 67.2047pt x 72.26999pt.
+
+Underfull \hbox (badness 10000) in paragraph at lines 546--547
+
+ []
+
+<figures/t7_normal_initAlign.png, id=96, 449.68pt x 463.7325pt>
+File: figures/t7_normal_initAlign.png Graphic file (type png)
+
+<use figures/t7_normal_initAlign.png>
+Package pdftex.def Info: figures/t7_normal_initAlign.png used on input line 551
+.
+(pdftex.def)             Requested size: 126.14282pt x 130.08621pt.
+
+<figures/t7_nonormal_fit.png, id=97, 451.6875pt x 450.68375pt>
+File: figures/t7_nonormal_fit.png Graphic file (type png)
+
+<use figures/t7_nonormal_fit.png>
+Package pdftex.def Info: figures/t7_nonormal_fit.png used on input line 553.
+(pdftex.def)             Requested size: 130.3726pt x 130.08621pt.
+
+<figures/t7_normal_fit.png, id=98, 441.65pt x 445.665pt>
+File: figures/t7_normal_fit.png Graphic file (type png)
+
+<use figures/t7_normal_fit.png>
+Package pdftex.def Info: figures/t7_normal_fit.png used on input line 555.
+(pdftex.def)             Requested size: 128.91086pt x 130.08621pt.
+
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+<figures/task7_errComp0045.png, id=99, 562.1pt x 421.575pt>
+File: figures/task7_errComp0045.png Graphic file (type png)
+
+<use figures/task7_errComp0045.png>
+Package pdftex.def Info: figures/task7_errComp0045.png used on input line 565.
+(pdftex.def)             Requested size: 240.90063pt x 180.67499pt.
+
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+[12 <./figures/t7_nEx_1.png> <./figures/t7_nEx_3.png> <./figures/t7_nEx_4.png> 
+<./figures/swirls.png>] [13 <./figures/t7_normal_initAlign.png> <./figures/t7_n
+onormal_fit.png> <./figures/t7_normal_fit.png> <./figures/task7_errComp0045.png
+ (PNG copy)>] (./reportCW1.bbl) 
 AED: lastpage setting LastPage
-[4 <./figures/t4_noiseBoth.png> <./figures/task4_noiseComp.png (PNG copy)> <./f
-igures/task4_noiseNonoise.png (PNG copy)>] [5 <./figures/task5_subsampled35.png
->] (./reportCW1.aux)
+[14
 
-LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
-
- ) 
+] (./reportCW1.aux) ) 
 Here is how much of TeX's memory you used:
- 4928 strings out of 493089
- 73189 string characters out of 6134842
- 156429 words of memory out of 5000000
- 8319 multiletter control sequences out of 15000+600000
- 12109 words of font info for 47 fonts, out of 8000000 for 9000
+ 5068 strings out of 493089
+ 76556 string characters out of 6134842
+ 157930 words of memory out of 5000000
+ 8431 multiletter control sequences out of 15000+600000
+ 12455 words of font info for 48 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 38i,11n,47p,530b,390s stack positions out of 5000i,500n,10000p,200000b,80000s
-</usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb
-></usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb>
-</usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb><
-/usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></u
-sr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/
-local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmr9.pfb></usr/loc
-al/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb>
-Output written on reportCW1.pdf (5 pages, 1228349 bytes).
+ 38i,12n,47p,890b,394s stack positions out of 5000i,500n,10000p,200000b,80000s
+</usr/local/texlive/2015/texmf-dist/fonts/type1/public/ams
+fonts/cm/cmbx10.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsf
+onts/cm/cmbx12.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfo
+nts/cm/cmmi10.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfon
+ts/cm/cmmi7.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts
+/cm/cmr10.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/c
+m/cmr8.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/c
+mr9.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy
+10.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7
+.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.
+pfb>
+Output written on reportCW1.pdf (14 pages, 3080242 bytes).
 PDF statistics:
- 72 PDF objects out of 1000 (max. 8388607)
- 34 compressed objects within 1 object stream
+ 151 PDF objects out of 1000 (max. 8388607)
+ 64 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
- 71 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 171 words of extra memory for PDF output out of 10000 (max. 10000000)
 

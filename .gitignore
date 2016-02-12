@@ -10,3 +10,6 @@ doc/figures/*
 .DS_Store
 src/plyMeshes/*
 .clang_complete
+
+finalCode
+finalCode.zip

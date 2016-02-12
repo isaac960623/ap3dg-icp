@@ -27,9 +27,11 @@ BUILDLIST := $(patsubst include/%,$(BUILDDIR)/%,$(INCDIRS))
 
 # Shared Compiler Flags
 # CFLAGS := -c
-INC := -I include $(INCLIST) -I /usr/local/include -I /usr/local/Cellar/glfw3/3.1.2/include -I /opt/local/include/ -I /Users/ucaHome/libraries/ann_1.1.2/include
-LIB := -L lib -L /usr/local/lib -L /usr/local/Cellar/glfw3/3.1.2/lib -L /opt/local/lib -L /Users/ucaHome/libraries/ann_1.1.2/lib -lstdc++ -lOpenMeshTools -lOpenMeshCore -lANN
-FRAMEWORK = -framework OpenGL -framework Cocoa -framework IOKit -framework CoreVideo
+# INC := -I include $(INCLIST) -I /usr/local/include -I /usr/local/Cellar/glfw3/3.1.2/include -I /opt/local/include/ -I /Users/ucaHome/libraries/ann_1.1.2/include
+# LIB := -L lib -L /usr/local/lib -L /usr/local/Cellar/glfw3/3.1.2/lib -L /opt/local/lib -L /Users/ucaHome/libraries/ann_1.1.2/lib -lstdc++ -lOpenMeshTools -lOpenMeshCore -lANN
+INC := -I include $(INCLIST) -I /usr/local/include -I /opt/local/include/ -I /Users/ucaHome/libraries/ann_1.1.2/include
+LIB := -L lib -L /usr/local/lib -L /opt/local/lib -L /Users/ucaHome/libraries/ann_1.1.2/lib -lstdc++ -lOpenMeshTools -lOpenMeshCore -lANN
+# FRAMEWORK = -framework OpenGL -framework Cocoa -framework IOKit -framework CoreVideo
 
 # The OBJECTS list is also dynamic and uses a Makefile trick to build the list based on available sources
 
